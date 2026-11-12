@@ -2,9 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": ".",
-    "noEmit": true,
+    "outDir": "dist",
     // Typecheck sur les sources des packages du workspace, sans build préalable.
     "customConditions": ["source"]
   },
-  "include": ["src"]
+  "include": ["src", "test", "vitest.config.ts"]
 }
