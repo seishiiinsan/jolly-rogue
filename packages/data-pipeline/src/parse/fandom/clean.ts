@@ -90,18 +90,32 @@ export interface Qualified {
   qualifiers: string[];
 }
 
-/** « Baratie (temporary, former) » → { text: 'Baratie', qualifiers: ['temporary', 'former'] }. */
+/**
+ * « Baratie (temporary, former) » → { text: 'Baratie', qualifiers: ['temporary', 'former'] }.
+ * Parenthèses imbriquées gérées : « Big Mom (Funimation subs (formerly): Big Mam) » → 'Big Mom'.
+ */
 export function extractQualifiers(text: string): Qualified {
   let rest = text.trim();
   const qualifiers: string[] = [];
-  for (let m = /\s*\(([^()]*)\)\s*$/.exec(rest); m; m = /\s*\(([^()]*)\)\s*$/.exec(rest)) {
+  while (rest.endsWith(')')) {
+    let depth = 0;
+    let open = -1;
+    for (let i = rest.length - 1; i >= 0; i--) {
+      if (rest[i] === ')') depth++;
+      else if (rest[i] === '(' && --depth === 0) {
+        open = i;
+        break;
+      }
+    }
+    if (open <= 0) break; // parenthèse non appariée, ou texte entièrement entre parenthèses
     qualifiers.unshift(
-      ...(m[1] ?? '')
+      ...rest
+        .slice(open + 1, -1)
         .split(',')
         .map((q) => q.trim().toLowerCase())
         .filter(Boolean),
     );
-    rest = rest.slice(0, m.index).trim();
+    rest = rest.slice(0, open).trim();
   }
   return { text: rest, qualifiers };
 }

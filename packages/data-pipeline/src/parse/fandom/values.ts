@@ -179,7 +179,7 @@ export interface Membership {
   isCurrent: boolean;
 }
 
-const PAST = /\b(former(ly)?|disbanded|defected|dissolved|resigned|deserted|retired|fired|expelled|previously|ex|deceased|destroyed)\b/i;
+const PAST = /\b(former(ly)?|disbanded|defected|dissolved|resigned|deserted|retired|fired|expelled|previously|ex|deceased|destroyed|revoked|demoted|pre-timeskip)\b/i;
 
 /** Affiliations ou métiers : un élément par entrée, qualificatifs → `isCurrent`. */
 export function parseMemberships(raw: string | undefined): Membership[] {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { FandomCharacter, FandomCrew, FandomDevilFruit } from '../src/parse/fandom/schemas.js';
-import { parseBounties, parseMaxAge, parseMaxHeightCm, parseStatus } from '../src/parse/fandom/values.js';
+import { parseBounties, parseMaxAge, parseMaxHeightCm, parseMemberships, parseStatus } from '../src/parse/fandom/values.js';
 import type { FandomRecord } from '../src/parse/fandom/page.js';
 import { isExcludedNonCanon } from '../src/sources/fandom.js';
 import { parseFixture } from './fandom-helpers.js';
@@ -163,6 +163,15 @@ describe('Crew Box (fixtures réelles)', () => {
 });
 
 describe('normaliseurs', () => {
+  it('affiliations : revoked / demoted / pre-timeskip ne sont pas actuelles', () => {
+    const m = parseMemberships('[[Heart Pirates]];<br />[[Seven Warlords of the Sea]] (revoked);<br />Commodore (demoted)');
+    expect(m.map((x) => [x.name, x.isCurrent])).toEqual([
+      ['Heart Pirates', true],
+      ['Seven Warlords of the Sea', false],
+      ['Commodore', false],
+    ]);
+  });
+
   it('statut : défaut alive, codes numériques et texte', () => {
     expect(parseStatus(undefined)).toBe('alive');
     expect(parseStatus('2')).toBe('deceased');

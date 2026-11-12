@@ -72,6 +72,8 @@ describe('nettoyage des valeurs', () => {
   it('extrait les qualificatifs finaux', () => {
     expect(extractQualifiers('Baratie (temporary, former)')).toEqual({ text: 'Baratie', qualifiers: ['temporary', 'former'] });
     expect(extractQualifiers('Gol D. Roger')).toEqual({ text: 'Gol D. Roger', qualifiers: [] });
+    expect(extractQualifiers('Big Mom (Funimation subs (formerly): Big Mam)').text).toBe('Big Mom');
+    expect(extractQualifiers('(biologically 28)')).toEqual({ text: '(biologically 28)', qualifiers: [] });
     expect(extractQualifiers('91 cm (3\') (debut, child)')).toEqual({ text: '91 cm', qualifiers: ["3'", 'debut', 'child'] });
   });
 
