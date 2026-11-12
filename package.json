@@ -1,0 +1,14 @@
+{
+  "name": "jolly-rogue",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Fan game non commercial : auto-battler roguelike web dans l'univers One Piece",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test"
+  }
+}
