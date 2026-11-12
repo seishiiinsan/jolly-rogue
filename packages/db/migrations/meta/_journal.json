@@ -15,6 +15,20 @@
       "when": 1794474969407,
       "tag": "0001_canon_updated_at_triggers",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794475970858,
+      "tag": "0002_raw_staging_external_ids",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794475971715,
+      "tag": "0003_updated_at_triggers_external_ids_staging",
+      "breakpoints": true
     }
   ]
 }

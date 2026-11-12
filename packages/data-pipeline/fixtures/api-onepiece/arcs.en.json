@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "title": "Arc Romance Dawn",
+    "description": "Luffy, a young boy, dreams of becoming King of the Pirates by finding the One Piece, the ultimate treasure collected by Gol D. Roger, the only pirate ever to hold the title of King of the Pirates. Shanks le Roux, a pirate who lives with the villagers in Luffy's village, has been Luffy's role model ever since the pirate saved the boy's life. One day, Luffy eats one of the demon fruits held by Shanks' crew, which turns him into a rubber-man, able to stretch his body at will. When he leaves, Shanks gives Luffy his straw hat. Luffy is not to return the hat until he has become a proud pirate.\n\nMany years later, Luffy leaves his village to build a crew and find the One Piece. To escape drowning, he locks himself in a barrel and is rescued by a young boy named Kobby. Kobby dreams of becoming a naval soldier, but by a twist of fate finds himself conscripted into the crew of the terrible Lady Alvida. They then meet Roronoa Zoro, a terrible bounty hunter who is being held by the Navy. Zoro finally agrees to join the crew on condition that Luffy succeeds in finding his sabers, which are being held by Colonel Morgan, the island's marine chief. After a battle with Morgan, Luffy manages to retrieve the three swords and leaves with Zoro, leaving Kobby to realize his dream. Roronoa Zoro thus becomes the first member recruited for his crew.",
+    "saga": {
+      "id": 1,
+      "title": "East Blue",
+      "saga_number": "1",
+      "saga_chapitre": "1 à 100",
+      "saga_volume": "1 à 12",
+      "saga_episode": "1 à 61"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Arc Village d'Orange",
+    "description": "After Luffy is \"kidnapped\" by a bird, Zoro meets three Baggy the Clown pirates who claim to have had their ship stolen by a girl. Meanwhile, Luffy arrives in a deserted village which is stormed by Baggy, who turns out to be a demon-fruit holder and an old friend of Shanks. After a long battle with Baggy and his men, Luffy convinces Nami, a pirate thief (the one who stole the three men's boat) and an excellent navigator, to join their crew.",
+    "saga": {
+      "id": 1,
+      "title": "East Blue",
+      "saga_number": "1",
+      "saga_chapitre": "1 à 100",
+      "saga_volume": "1 à 12",
+      "saga_episode": "1 à 61"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Arc Village de Sirop",
+    "description": "Luffy, Zoro and Nami arrive on the island of Sirop. They soon meet Usopp, a whimsical young man who spends his mornings shouting about the arrival of supposed pirates, so much so that no one believes him anymore. The four youngsters soon incur the wrath of Klahadoll, the steward of Kaya's manor, a reclusive landowner. As Usopp is ill, he often comes to tell him stories to cheer him up, something the steward doesn't appreciate when he hears that Usopp's father is a pirate in the pay of Shanks.\n\nLater, Luffy and Usopp overhear a conversation between Klahadoll and Jango. The latter is in fact Captain Kuro, a bloodthirsty pirate who aspires to take control of Kaya's fortune and then kill her. But when Usopp tries to warn the inhabitants, no one listens. So it's up to Luffy, Zoro, Nami and Usopp to deal with Captain Kuro's crew, who arrive shortly afterwards.\n\nFollowing an emphatic victory, Usopp agrees to join Luffy, the newest member of his crew, on the Vogue Merry.",
+    "saga": {
+      "id": 1,
+      "title": "East Blue",
+      "saga_number": "1",
+      "saga_chapitre": "1 à 100",
+      "saga_volume": "1 à 12",
+      "saga_episode": "1 à 61"
+    }
+  },
+  {
+    "id": 50,
+    "title": "Elbaph Arc",
+    "description": "Elbaph Arc",
+    "saga": {
+      "id": 10,
+      "title": "Final Saga",
+      "saga_number": "10",
+      "saga_chapitre": "-",
+      "saga_volume": "-",
+      "saga_episode": "-"
+    }
+  }
+]

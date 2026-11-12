@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "title": "Arc Romance Dawn",
+    "description": "Luffy, un jeune garçon, rêve de devenir le Roi des Pirates en trouvant le One Piece, le trésor ultime rassemblé par Gol D. Roger, le seul pirate à avoir jamais porté le titre de Roi des Pirates. Shanks le Roux, un pirate qui est hébergé par les villageois du village de Luffy, est le modèle de Luffy depuis que le pirate a sauvé la vie du garçon. Un jour, Luffy mange un des fruits du démon, qui était détenu par l'équipage de Shanks, ce qui fait de lui un homme-caoutchouc, pouvant étirer son corps à volonté. À son départ, Shanks donne à Luffy son chapeau de paille. Luffy ne doit lui rendre ce chapeau que lorsqu'il sera devenu un fier pirate.\n\nBien des années plus tard, Luffy part de son village pour se constituer un équipage et trouver le One Piece. Pour échapper à la noyade, il s'enferme dans un tonneau et se fait repêcher par un jeune garçon du nom de Kobby. Ce dernier rêve de devenir un soldat de la Marine, mais par un coup du sort, s'est retrouvé enrôlé dans l'équipage de la terrible Lady Alvida. Ils rencontrent ensuite Roronoa Zoro, un terrible chasseur de primes qui est détenu par la Marine. Zoro accepte finalement de rejoindre l'équipage à condition que Luffy réussisse à trouver ses sabres qui sont détenus par le Colonel Morgan, le chef des marines de l'île. Après un combat contre Morgan, Luffy réussit à reprendre les trois épées et part avec Zoro en laissant Kobby réaliser son rêve. Roronoa Zoro devient ainsi le premier membre recruté pour son équipage.",
+    "saga": {
+      "id": 1,
+      "title": "East Blue",
+      "saga_number": "1",
+      "saga_chapitre": "1 à 100",
+      "saga_volume": "1 à 12",
+      "saga_episode": "1 à 61"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Arc Village d'Orange",
+    "description": "Après que Luffy a été « enlevé » par un oiseau, Zoro rencontre trois pirates de Baggy le Clown qui disent s'être fait voler leur bateau par une fille. Pendant ce temps, Luffy arrive dans un village désert qui est pris d'assaut par Baggy qui s'avère être un détenteur d'un fruit du démon et un ancien ami de Shanks. Après un long combat contre Baggy et ses hommes, Luffy arrive à convaincre Nami, une voleuse de pirates (celle qui a volé le bateau des trois hommes) et aussi une excellente navigatrice, de rejoindre leur équipage",
+    "saga": {
+      "id": 1,
+      "title": "East Blue",
+      "saga_number": "1",
+      "saga_chapitre": "1 à 100",
+      "saga_volume": "1 à 12",
+      "saga_episode": "1 à 61"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Arc Village de Sirop",
+    "description": "Luffy, Zoro et Nami arrivent sur l'île de Sirop. Ils rencontrent rapidement Usopp, un jeune homme fantasque qui passe ses matinées à hurler l'arrivée de prétendus pirates, si bien que plus personne ne le croit. Rapidement, les quatre jeunes s'attirent les foudres de Klahadoll, l'intendant du manoir de Kaya, propriétaire terrienne recluse dans son manoir. Étant malade, Usopp vient souvent lui raconter des histoires pour lui redonner le sourire; chose très mal vu par l'intendant qui n'apprécie pas le fait que le père de Usopp soit un pirate à la solde de Shanks.\n\nPlus tard, Luffy et Usopp surprennent une conversation de Klahadoll et Jango. Ce dernier est en fait le Capitaine Kuro, pirate sanguinaire qui aspire à prendre le contrôle de la fortune de Kaya et d'ensuite la tuer. Mais lorsque Usopp tente d'avertir les habitants, personne ne l'écoute. C'est donc à Luffy, Zoro, Nami et Usopp de s'occuper de l'équipage du Capitaine Kuro, qui arrive peu après.\n\nÀ la suite d'une victoire sans appel, Usopp accepte de se joindre à Luffy, nouveau membre recruté pour son équipage, sur le Vogue Merry.",
+    "saga": {
+      "id": 1,
+      "title": "East Blue",
+      "saga_number": "1",
+      "saga_chapitre": "1 à 100",
+      "saga_volume": "1 à 12",
+      "saga_episode": "1 à 61"
+    }
+  },
+  {
+    "id": 50,
+    "title": "Arc Elbaph",
+    "description": "Arc Elbaph",
+    "saga": {
+      "id": 10,
+      "title": "Saga Finale",
+      "saga_number": "10",
+      "saga_chapitre": "-",
+      "saga_volume": "-",
+      "saga_episode": "-"
+    }
+  }
+]
