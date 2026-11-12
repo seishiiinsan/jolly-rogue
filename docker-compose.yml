@@ -40,9 +40,12 @@ services:
       context: .
       dockerfile: packages/data-pipeline/Dockerfile
     profiles: [tools]
+    # Même uid/gid que le propriétaire de ./data sur l'hôte, sinon cache et exports ne sont pas inscriptibles.
+    user: "${PIPELINE_UID:-1000}:${PIPELINE_GID:-1000}"
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
       DATA_DIR: /data
+      PIPELINE_USER_AGENT: ${PIPELINE_USER_AGENT:-}
     volumes:
       - ./data/cache:/data/cache
       - ./data/exports:/data/exports
