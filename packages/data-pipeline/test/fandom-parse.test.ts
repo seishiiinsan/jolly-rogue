@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { FandomCharacter, FandomCrew, FandomDevilFruit } from '../src/parse/fandom/schemas.js';
-import { parseBounties, parseLastAge, parseLastHeightCm, parseStatus } from '../src/parse/fandom/values.js';
+import { parseBounties, parseMaxAge, parseMaxHeightCm, parseStatus } from '../src/parse/fandom/values.js';
 import type { FandomRecord } from '../src/parse/fandom/page.js';
 import { isExcludedNonCanon } from '../src/sources/fandom.js';
 import { parseFixture } from './fandom-helpers.js';
@@ -16,7 +16,7 @@ function character(title: string): FandomCharacter {
 const current = (c: FandomCharacter) => c.bounties.filter((b) => b.isCurrent);
 
 describe('Char Box (fixtures réelles)', () => {
-  it('Luffy : infobox dans le Tabs Top, noms, dernière valeur, historique des primes', () => {
+  it('Luffy : infobox dans le Tabs Top, noms, valeur max, historique des primes', () => {
     const parsed = parseFixture('Monkey D. Luffy');
     expect(parsed.records[0]?.infoboxPage.title).toBe('Template:Monkey D. Luffy Tabs Top');
     const luffy = character('Monkey D. Luffy');
@@ -73,8 +73,8 @@ describe('Char Box (fixtures réelles)', () => {
     expect(current(ace)).toEqual([]);
     expect(ace.bounties[0]).toMatchObject({ amount: 550_000_000, isCurrent: false });
     expect(ace.bounties[1]).toMatchObject({ amount: 100_000_000, isMinimum: true, isCurrent: false });
-    // Règle « dernière valeur » : la liste d'Ace est écrite adulte puis enfant.
-    expect(ace.heightCm).toBe(103);
+    // Liste écrite adulte puis enfant : le max donne bien la taille adulte.
+    expect(ace.heightCm).toBe(185);
   });
 
   it('Barbe Blanche : mort, prime barrée', () => {
@@ -171,14 +171,17 @@ describe('normaliseurs', () => {
     expect(parseStatus('0')).toBe('alive'); // #default du template
   });
 
-  it('âge et taille : dernière valeur, inconnu → null, format inconnu → rejet', () => {
-    expect(parseLastAge('7 (debut);<br/>17 (pre-timeskip);<br/>19 (post-timeskip)')).toBe(19);
-    expect(parseLastAge('Unknown')).toBeNull();
-    expect(parseLastAge('Even he does not know')).toBeNull();
-    expect(parseLastAge('8 (born 28 years ago)<br />(biologically 28)')).toBe(28);
-    expect(parseLastHeightCm('6 m (19\'8")')).toBe(600);
-    expect(parseLastHeightCm('1,200 cm')).toBe(1200);
-    expect(parseLastHeightCm('Giant')).toBeUndefined();
+  it('âge et taille : valeur max, inconnu → null, format inconnu → rejet', () => {
+    expect(parseMaxAge('7 (debut);<br/>17 (pre-timeskip);<br/>19 (post-timeskip)')).toBe(19);
+    expect(parseMaxAge('Unknown')).toBeNull();
+    expect(parseMaxAge('Even he does not know')).toBeNull();
+    expect(parseMaxAge('8 (born 28 years ago)<br />(biologically 28)')).toBe(28);
+    expect(parseMaxHeightCm('6 m (19\'8")')).toBe(600);
+    expect(parseMaxHeightCm('1,200 cm')).toBe(1200);
+    expect(parseMaxHeightCm('Giant')).toBeUndefined();
+    expect(parseMaxHeightCm('185 cm (6\'1") (age 20)<br />103 cm (3\'5") (age 10)')).toBe(185);
+    expect(parseMaxHeightCm('Unknown')).toBeNull();
+    expect(parseMaxAge('40 (debut)<br />Unknown')).toBe(40);
   });
 
   it('primes : grade seul, valeur inconnue, format inconnu', () => {

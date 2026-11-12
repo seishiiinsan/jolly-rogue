@@ -75,7 +75,7 @@ docker compose run --rm pipeline ingest --source=fandom
 - Environ 370 requêtes au premier lancement (1 requête/s, ~7 min), aucune ensuite grâce au cache.
 - Une page sans infobox lisible ou avec une valeur au format inconnu est rejetée (`staging.rejections`,
   listée dans le rapport) sans bloquer le lot.
-- Règles de lecture : âge et taille = **dernière valeur** de la liste du wiki ; prime actuelle = non barrée
+- Règles de lecture : âge et taille = **plus grande valeur** de la liste du wiki (l'ordre n'y est pas toujours chronologique) ; prime actuelle = non barrée
   (toutes barrées : aucune prime actuelle) ; « At least X » → `isMinimum` ; grade Marine en étoiles seul → montant `null`.
 - **Licence** : textes du wiki sous `CC-BY-SA` (déclarée par l'API, détail sur <https://www.fandom.com/licensing>).
   Chaque ligne de `staging.fandom` porte `license` et `source_url` (permalien de la révision lue). Aucune prose

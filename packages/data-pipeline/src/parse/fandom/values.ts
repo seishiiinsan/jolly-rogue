@@ -35,40 +35,54 @@ export function parseStatus(raw: string | undefined): VitalStatus {
 }
 
 /**
- * Texte nettoyé du dernier élément d'une liste, sans qualificatifs finaux. Un élément réduit à
- * une parenthèse (« (biologically 28) ») garde son contenu.
+ * Textes nettoyés des éléments d'une liste, sans qualificatifs finaux. Un élément réduit à une
+ * parenthèse (« (biologically 28) ») garde son contenu.
  */
-function lastItem(raw: string): string | null {
-  const items = splitItems(raw);
-  const last = items.at(-1);
-  if (last === undefined) return null;
-  const cleaned = cleanText(last);
-  return extractQualifiers(cleaned).text || cleaned.replace(/[()]/g, '').trim();
+function itemTexts(raw: string): string[] {
+  return splitItems(raw).map((item) => {
+    const cleaned = cleanText(item);
+    return extractQualifiers(cleaned).text || cleaned.replace(/[()]/g, '').trim();
+  });
 }
 
-/** Âge : dernière valeur de la liste (« 7 (debut); 17 (pre-timeskip); 19 (post-timeskip) » → 19). */
-export function parseLastAge(raw: string | undefined): number | null | undefined {
+const maxOf = (values: number[]): number | null => (values.length === 0 ? null : Math.max(...values));
+
+/**
+ * Âge : **plus grande** valeur de la liste (« 7 (debut); 17 (pre-timeskip); 19 (post-timeskip) » → 19).
+ * Le max plutôt que la dernière valeur : l'ordre des listes du wiki n'est pas toujours chronologique.
+ * Sans nombre (« Even he does not know », « Multiple centuries ») : âge inconnu (`null`).
+ */
+export function parseMaxAge(raw: string | undefined): number | null | undefined {
   if (isBlank(raw)) return null;
-  const last = lastItem(raw);
-  if (last === null || UNKNOWN_TEXT.test(last)) return null;
-  const m = /(\d[\d,]*)/.exec(last);
-  // Sans nombre (« Even he does not know », « Multiple centuries ») : âge inconnu.
-  if (!m?.[1]) return null;
-  const n = Number(m[1].replace(/,/g, ''));
-  return Number.isSafeInteger(n) ? n : undefined;
+  const values: number[] = [];
+  for (const t of itemTexts(raw)) {
+    const m = /(\d[\d,]*)/.exec(t);
+    if (!m?.[1]) continue;
+    const n = Number(m[1].replace(/,/g, ''));
+    if (!Number.isSafeInteger(n)) return undefined;
+    values.push(n);
+  }
+  return maxOf(values);
 }
 
-/** Taille en cm : dernière valeur (« 172 cm (5'8") (pre-timeskip); 174 cm … » → 174). Mètres convertis. */
-export function parseLastHeightCm(raw: string | undefined): number | null | undefined {
+/**
+ * Taille en cm : **plus grande** valeur de la liste (Ace : « 185 cm (age 20); 103 cm (age 10) » → 185).
+ * Mètres et kilomètres convertis. Un élément non inconnu sans unité métrique rend la ligne invalide.
+ */
+export function parseMaxHeightCm(raw: string | undefined): number | null | undefined {
   if (isBlank(raw)) return null;
-  const last = lastItem(raw);
-  if (last === null || UNKNOWN_TEXT.test(last)) return null;
-  const m = /(\d[\d,]*(?:\.\d+)?)\s*(cm|m|km)\b/i.exec(last);
-  if (!m?.[1] || !m[2]) return undefined;
-  const value = Number(m[1].replace(/,/g, ''));
-  const factor = { cm: 1, m: 100, km: 100_000 }[m[2].toLowerCase() as 'cm' | 'm' | 'km'];
-  const cm = Math.round(value * factor);
-  return cm > 0 && cm <= 2_147_483_647 ? cm : undefined;
+  const values: number[] = [];
+  for (const t of itemTexts(raw)) {
+    if (t === '' || UNKNOWN_TEXT.test(t)) continue;
+    const m = /(\d[\d,]*(?:\.\d+)?)\s*(cm|m|km)\b/i.exec(t);
+    if (!m?.[1] || !m[2]) return undefined;
+    const value = Number(m[1].replace(/,/g, ''));
+    const factor = { cm: 1, m: 100, km: 100_000 }[m[2].toLowerCase() as 'cm' | 'm' | 'km'];
+    const cm = Math.round(value * factor);
+    if (cm <= 0 || cm > 2_147_483_647) return undefined;
+    values.push(cm);
+  }
+  return maxOf(values);
 }
 
 // --- Primes ------------------------------------------------------------------
