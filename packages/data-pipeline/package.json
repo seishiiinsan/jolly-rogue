@@ -7,7 +7,9 @@
     "pipeline": "./dist/cli.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "config",
+    "overrides"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -18,6 +20,7 @@
   "dependencies": {
     "@jolly-rogue/db": "workspace:*",
     "drizzle-orm": "^0.45.4",
+    "yaml": "^2.9.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {

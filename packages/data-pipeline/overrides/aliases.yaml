@@ -1,0 +1,22 @@
+# Rapprochements manuels (docs/cadrage.md §9.4). Procédure : packages/data-pipeline/README.md.
+#
+# Une entrée relie une page du One Piece Wiki (titre exact) à un id api-onepiece.com, ou à `null`
+# pour dire « aucun équivalent » (empêche un rapprochement par nom erroné, ex. homonymes).
+# Un alias l'emporte sur le rapprochement par nom et sur un rapprochement déjà enregistré.
+#
+# characters:
+#   - fandom: Marshall D. Teach
+#     api-onepiece: "247"
+#     note: nom api « Marchall D. Teach / Barbe Noire »
+
+devil_fruits: []
+crews: []
+characters:
+  # Homonymes : le nom seul rapprochait « Tama » (api, porteuse du Kibi Kibi no Mi) de la page
+  # « Tama (Sphinx) ». C'est Kurozumi Tama ; la page Sphinx n'a pas d'équivalent api-onepiece.
+  - fandom: Kurozumi Tama
+    api-onepiece: "585"
+    note: api « Tama », fruit 76 (Millet fruit = Kibi Kibi no Mi)
+  - fandom: Tama (Sphinx)
+    api-onepiece: null
+    note: homonyme, absent d'api-onepiece

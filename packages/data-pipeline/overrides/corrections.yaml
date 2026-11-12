@@ -1,0 +1,31 @@
+# Corrections manuelles de valeurs, appliquées en dernier (docs/cadrage.md §9.4 étape 6).
+# Procédure : packages/data-pipeline/README.md.
+#
+# - entity: characters        # locations | sagas | arcs | devil_fruits | crews | characters
+#   slug: monkey-d-luffy      # slug canon (voir data/exports/canon.json)
+#   field: age                # colonne scalaire en snake_case, ou `affiliations` (characters)
+#   value: 19                 # affiliations : { crew: <slug>, is_current: true|false }
+#   reason: "âge post-ellipse, la source donne l'âge pré-ellipse"
+#   date: 2026-11-12          # date de la correction (provenance)
+
+# Équipage du Chapeau de paille : 10 membres officiels (Luffy, Zoro, Nami, Usopp, Sanji, Chopper,
+# Robin, Franky, Brook, Jinbe). Fandom rattache aussi à l'équipage, sans qualificatif, des
+# personnages qui n'en sont pas membres : affiliation conservée, mais non actuelle.
+- entity: characters
+  slug: zeus
+  field: affiliations
+  value: { crew: mugiwara-no-ichimi, is_current: false }
+  reason: "Nuage-homie arme de Nami (« Living Weapon » sur Fandom), pas membre de l'équipage"
+  date: 2026-11-12
+- entity: characters
+  slug: pirate-bear
+  field: affiliations
+  value: { crew: mugiwara-no-ichimi, is_current: false }
+  reason: "Rattaché à l'équipage par Fandom sans qualificatif, absent des 10 membres officiels"
+  date: 2026-11-12
+- entity: characters
+  slug: pirate-penguin
+  field: affiliations
+  value: { crew: mugiwara-no-ichimi, is_current: false }
+  reason: "Rattaché à l'équipage par Fandom sans qualificatif, absent des 10 membres officiels"
+  date: 2026-11-12
