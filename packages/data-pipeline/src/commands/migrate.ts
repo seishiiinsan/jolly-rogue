@@ -1,6 +1,7 @@
 import { createDb, runMigrations } from '@jolly-rogue/db';
+import type { CommandContext } from './types.js';
 
-export async function migrateCommand(databaseUrl: string): Promise<void> {
+export async function migrateCommand({ databaseUrl }: CommandContext): Promise<void> {
   // max: 1 → une seule connexion ; onnotice muet → pas de bruit « already exists, skipping ».
   const { db, client } = createDb(databaseUrl, { max: 1, onnotice: () => {} });
   try {
