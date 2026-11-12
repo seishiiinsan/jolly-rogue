@@ -28,19 +28,11 @@ export async function ingestCommand({ databaseUrl, options }: CommandContext): P
       );
       return;
     }
-    const result = await ingestApiOnepiece(db, http, (m) => console.log(m));
-    const f = result.fetch;
+    const f = await ingestApiOnepiece(db, http, (m) => console.log(m));
     console.log(
       `ingest ${source} : ${f.responses} réponses (${f.fromCache} depuis le cache), ${f.rawInserted} nouvelles dans raw, ` +
         `${f.parsed} parsées (${f.skipped} inchangées), ${f.records} lignes valides, ${f.rejected} rejetées`,
     );
-    for (const [entity, s] of Object.entries(result.load.entities)) {
-      console.log(`  canon.${entity} : +${s.inserted} insérées, ${s.updated} modifiées, ${s.unchanged} inchangées`);
-    }
-    for (const [relation, s] of Object.entries(result.load.relations)) {
-      console.log(`  canon.${relation} : ${s.written} écritures`);
-    }
-    console.log(`  ${result.issues} anomalies (voir pipeline report)`);
   } finally {
     await client.end();
   }

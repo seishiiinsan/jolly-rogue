@@ -1,0 +1,8 @@
+# Overrides des tests : appliqués aux fixtures (api-onepiece : 26 persos, Fandom : 27 pages).
+characters:
+  # api « Marchall D. Teach / Barbe Noire » : nom mal orthographié, seulement candidat fuzzy.
+  - fandom: Marshall D. Teach
+    api-onepiece: "247"
+  # Homonyme sans équivalent api-onepiece.
+  - fandom: Tama (Sphinx)
+    api-onepiece: null

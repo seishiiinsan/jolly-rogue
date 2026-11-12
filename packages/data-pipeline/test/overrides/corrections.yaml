@@ -1,0 +1,18 @@
+- entity: characters
+  slug: zeus
+  field: affiliations
+  value: { crew: mugiwara-no-ichimi, is_current: false }
+  reason: pas membre de l'équipage
+  date: 2026-11-12
+- entity: characters
+  slug: pirate-bear
+  field: affiliations
+  value: { crew: mugiwara-no-ichimi, is_current: false }
+  reason: pas membre de l'équipage
+  date: 2026-11-12
+- entity: characters
+  slug: nami
+  field: age
+  value: 21
+  reason: correction scalaire de test
+  date: 2026-11-12

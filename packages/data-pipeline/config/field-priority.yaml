@@ -1,0 +1,60 @@
+# Priorité des sources par champ (docs/cadrage.md §9.4, étape 5). Fichier unique, validé au démarrage
+# de `pipeline reconcile` : chaque entité et chaque champ doivent être listés, rien d'autre.
+#
+# Règle : pour chaque champ, la première source de la liste qui a une valeur l'emporte.
+# - Valeur absente = null (statut `unknown` compris) ou relation vide.
+# - Deux sources avec des valeurs différentes = conflit, tracé dans data/exports/report.md.
+# - overrides/corrections.yaml s'applique ensuite, quelle que soit la source retenue.
+# Sources : api-onepiece (api.api-onepiece.com), fandom (onepiece.fandom.com, CC-BY-SA).
+
+# Fandom n'a pas de lieux, sagas ni arcs : api-onepiece seule.
+locations:
+  name_en: [api-onepiece]
+  name_fr: [api-onepiece]
+  sea: [api-onepiece]
+  kind: [api-onepiece]
+sagas:
+  name_en: [api-onepiece]
+  name_fr: [api-onepiece]
+  chapter_start: [api-onepiece]
+  chapter_end: [api-onepiece]
+  sort_order: [api-onepiece]
+arcs:
+  name_en: [api-onepiece]
+  name_fr: [api-onepiece]
+  chapter_start: [api-onepiece]
+  chapter_end: [api-onepiece]
+  sort_order: [api-onepiece]
+  saga_id: [api-onepiece]
+
+devil_fruits:
+  name_romaji: [fandom, api-onepiece]
+  name_en: [fandom, api-onepiece]
+  name_fr: [api-onepiece] # Fandom est en anglais
+  type: [fandom, api-onepiece]
+  # api-onepiece distingue SMILE et clones, vocabulaire déjà publié : on le garde.
+  subtype: [api-onepiece, fandom]
+
+crews:
+  name_en: [fandom, api-onepiece]
+  name_fr: [api-onepiece]
+  kind: [api-onepiece, fandom] # déduit du nom dans les deux cas
+  is_yonko: [api-onepiece]
+  captain_id: [fandom, api-onepiece]
+
+characters:
+  name_en: [fandom, api-onepiece]
+  name_fr: [api-onepiece]
+  name_jp: [fandom]
+  epithet: [fandom]
+  # Fandom est plus à jour sur le statut, l'âge, la taille, les primes et les affiliations.
+  status: [fandom, api-onepiece]
+  age: [fandom, api-onepiece]
+  height_cm: [fandom, api-onepiece]
+  origin_location_id: [fandom]
+  debut_chapter: [fandom]
+  affiliations: [fandom, api-onepiece]
+  devil_fruits: [fandom, api-onepiece]
+  bounties: [fandom, api-onepiece]
+  haki: [fandom]
+# character_aliases n'a pas de priorité : tous les noms connus des deux sources y sont gardés.
