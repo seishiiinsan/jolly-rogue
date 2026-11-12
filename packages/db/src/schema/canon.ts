@@ -263,3 +263,26 @@ export const provenance = canon.table(
   },
   (t) => [unique('provenance_entity_entity_id_field_source_key').on(t.entity, t.entityId, t.field, t.source)],
 );
+
+// --- Correspondance des identifiants par source ---------------------------
+
+/**
+ * Table de correspondance « id dans la source » → entité canon (docs/cadrage.md §9.4, étape 1 du
+ * rapprochement). Garantit des upserts par clé source et des slugs figés à la création.
+ */
+export const externalIds = canon.table(
+  'external_ids',
+  {
+    id: id(),
+    // Nom de table canon (characters, crews, devil_fruits…).
+    entity: text('entity').notNull(),
+    entityId: integer('entity_id').notNull(),
+    source: text('source').notNull(),
+    externalId: text('external_id').notNull(),
+    ...timestamps(),
+  },
+  (t) => [
+    unique('external_ids_source_entity_external_id_key').on(t.source, t.entity, t.externalId),
+    index('external_ids_entity_entity_id_idx').on(t.entity, t.entityId),
+  ],
+);
