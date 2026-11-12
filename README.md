@@ -32,24 +32,20 @@ docker compose exec db sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "\dt
 
 ## Pipeline de données
 
-Collecte api-onepiece.com (FR + EN) → `raw.responses` → `staging.api_onepiece` (validé par Zod) → `canon` :
+api-onepiece.com (FR + EN) et One Piece Wiki (Fandom) → `raw.responses` → `staging` (validé par Zod) →
+réconciliation → `canon` → `data/exports/canon.json` et `data/exports/report.md`. Tout reconstruire :
 
 ```bash
-docker compose run --rm pipeline ingest --source=api-onepiece
+docker compose run --rm pipeline all
 ```
 
-```bash
-docker compose run --rm pipeline export
-```
-
-```bash
-docker compose run --rm pipeline report
-```
+Commandes, sources, licences, priorité des sources et **ajout d'un override** :
+[`packages/data-pipeline/README.md`](packages/data-pipeline/README.md).
 
 - `export` écrit `data/exports/canon.json` (tri stable, aucun horodatage) ; `report` écrit `data/exports/report.md`
-  (comptes, lignes rejetées, anomalies, slugs suffixés, complétude).
+  (comptes, lignes rejetées, entités non rapprochées, candidats fuzzy, conflits entre sources, complétude).
 - Client HTTP : cache disque `data/cache` (clé = URL), 1 requête/s par domaine, retry sur 429/5xx.
-  `--offline` lit uniquement le cache, `--refresh` re-télécharge. Relancer `ingest` ne modifie aucune ligne
+  `--offline` lit uniquement le cache, `--refresh` re-télécharge. Relancer `all` ne modifie aucune ligne
   si les données n'ont pas changé.
 - Le conteneur écrit dans `./data` avec l'uid `PIPELINE_UID:PIPELINE_GID` (défaut `1000:1000`) :
   renseigne `id -u` / `id -g` dans `.env` si ton utilisateur a un autre uid.
@@ -58,7 +54,7 @@ docker compose run --rm pipeline report
 ### Source Fandom (One Piece Wiki)
 
 Collecte des infobox du [One Piece Wiki](https://onepiece.fandom.com) via l'API MediaWiki → `raw.responses` →
-`staging.fandom` (validé par Zod). **Aucune écriture dans `canon`** à ce stade (rapprochement : tâche 4).
+`staging.fandom` (validé par Zod). L'écriture dans `canon` est faite par `reconcile`, avec api-onepiece.
 
 ```bash
 docker compose run --rm pipeline ingest --source=fandom
@@ -97,7 +93,7 @@ pnpm install
 pnpm -r typecheck
 ```
 
-Tests (le test d'intégration crée puis supprime sa propre base ; il est ignoré sans `TEST_DATABASE_URL`) :
+Tests (les tests d'intégration créent puis suppriment leur propre base ; ils sont ignorés sans `TEST_DATABASE_URL`) :
 
 ```bash
 TEST_DATABASE_URL=postgres://jolly:change-me@127.0.0.1:5432/jolly_rogue pnpm -r test
@@ -132,7 +128,8 @@ docker compose build pipeline
 | Chemin | Rôle |
 | --- | --- |
 | `packages/db` | Schéma Drizzle (`raw`, `staging`, `canon`), migrations, client partagé |
-| `packages/data-pipeline` | CLI d'ingestion (image Docker `pipeline`) |
+| `packages/data-pipeline` | CLI d'ingestion et de réconciliation (image Docker `pipeline`), voir son README |
+| `packages/data-pipeline/overrides` | Alias et corrections manuelles des données canon |
 | `data/exports` | Exports JSON consommés par le moteur (commités) |
 | `data/cache` | Cache HTTP brut (ignoré par Git) |
 | `packages/data-pipeline/fixtures` | Extraits réels des réponses API pour les tests |
