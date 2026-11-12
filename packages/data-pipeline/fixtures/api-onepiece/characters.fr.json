@@ -1,0 +1,572 @@
+[
+  {
+    "id": 1,
+    "name": "Monkey D Luffy",
+    "size": "174cm",
+    "age": "19 ans",
+    "bounty": "3.000.000.000",
+    "crew": {
+      "id": 1,
+      "name": "L’équipage du Chapeau de Paille",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Mugiwara no Ichimi",
+      "total_prime": "3.161.000.100",
+      "is_yonko": true
+    },
+    "fruit": {
+      "id": 196,
+      "name": "Hito Hito no Mi, modèle Nika",
+      "description": "Le Hito Hito no Mi, modèle Nika est un Fruit du Démon de type Zoan Mythique qui permet à son utilisateur de se transformer en Nika, le \"Dieu du Soleil\".",
+      "type": "Zoan Mythique",
+      "roman_name": "Hito Hito no Mi, Moderu: Nika"
+    },
+    "job": "Capitaine",
+    "status": "vivant"
+  },
+  {
+    "id": 2,
+    "name": "Roronoa Zoro",
+    "size": "181cm",
+    "age": "21 ans",
+    "bounty": "1.101.000.000",
+    "crew": {
+      "id": 1,
+      "name": "L’équipage du Chapeau de Paille",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Mugiwara no Ichimi",
+      "total_prime": "3.161.000.100",
+      "is_yonko": true
+    },
+    "job": "Bras-Droit",
+    "status": "vivant"
+  },
+  {
+    "id": 3,
+    "name": "Nami",
+    "size": "170cm",
+    "age": "20 ans",
+    "bounty": "366.000.000",
+    "crew": {
+      "id": 1,
+      "name": "L’équipage du Chapeau de Paille",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Mugiwara no Ichimi",
+      "total_prime": "3.161.000.100",
+      "is_yonko": true
+    },
+    "job": "Navigatrice",
+    "status": "vivant"
+  },
+  {
+    "id": 4,
+    "name": "Usopp",
+    "size": "176cm",
+    "age": "19 ans",
+    "bounty": "500.000.000",
+    "crew": {
+      "id": 1,
+      "name": "L’équipage du Chapeau de Paille",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Mugiwara no Ichimi",
+      "total_prime": "3.161.000.100",
+      "is_yonko": true
+    },
+    "job": "Tireur d’élite",
+    "status": "vivant"
+  },
+  {
+    "id": 5,
+    "name": "Sanji",
+    "size": "180cm",
+    "age": "21 ans",
+    "bounty": "1.032.000.000",
+    "crew": {
+      "id": 1,
+      "name": "L’équipage du Chapeau de Paille",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Mugiwara no Ichimi",
+      "total_prime": "3.161.000.100",
+      "is_yonko": true
+    },
+    "job": "Cuisinier",
+    "status": "vivant"
+  },
+  {
+    "id": 6,
+    "name": "Tony-Tony Chopper",
+    "size": "90cm",
+    "age": "17 ans",
+    "bounty": "1000",
+    "crew": {
+      "id": 1,
+      "name": "L’équipage du Chapeau de Paille",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Mugiwara no Ichimi",
+      "total_prime": "3.161.000.100",
+      "is_yonko": true
+    },
+    "fruit": {
+      "id": 92,
+      "name": "Fruit de l'Humain",
+      "description": "celui qui le mange devient à moitié humain. Son utilisateur étant à la base un renne, celui-ci a attrapé donc une intelligence lui permettant d'acquérir une grande quantité de connaissance. Avant l'ellipse, Chopper devait prendre une Rumble-Ball pour avoir plus de transformation pendant 3 minutes1 (si au bout des 3 minutes il reprenait une Rumble-Ball, il ne contrôlait plus ses transformations et s'il prenait une 3e Rumble-Ball, il devenait un monstre gigantesque mais inconscient, détruisant ennemis comme alliés). Après l'ellipse, il maîtrise parfaitement toutes les transformations et lorsqu'il prend une Rumble-Ball il devient le monstre gigantesque mais en se contrôlant.",
+      "type": "Zoan",
+      "roman_name": "Hito Hito no Mi",
+      "filename": "https://images.api-onepiece.com/fruits/28c479a3d76524452745f40bde7a0c37.png"
+    },
+    "job": "Médecin",
+    "status": "vivant"
+  },
+  {
+    "id": 7,
+    "name": "Nico Robin",
+    "size": "188cm",
+    "age": "30 ans",
+    "bounty": "930.000.000",
+    "crew": {
+      "id": 1,
+      "name": "L’équipage du Chapeau de Paille",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Mugiwara no Ichimi",
+      "total_prime": "3.161.000.100",
+      "is_yonko": true
+    },
+    "fruit": {
+      "id": 6,
+      "name": "Fruit Des Éclosions",
+      "description": "Permet de faire pousser des parties de son corps (ou même de créer des clones) partout où son utilisateur le désire, même sur une autre personne. Il peut assembler plusieurs exemplaires du même membre afin de créer, par exemple, des mains géantes ou de créer des clones de lui-même pour tromper ses adversaires.",
+      "type": "Paramecia",
+      "roman_name": "Hana Hana no Mi",
+      "filename": "https://images.api-onepiece.com/fruits/5f82c2c5df83335a916f98dc3b09eade.png"
+    },
+    "job": "Archéologue",
+    "status": "vivant"
+  },
+  {
+    "id": 8,
+    "name": "Franky",
+    "size": "240cm",
+    "age": "36 ans",
+    "bounty": "394.000.000",
+    "crew": {
+      "id": 1,
+      "name": "L’équipage du Chapeau de Paille",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Mugiwara no Ichimi",
+      "total_prime": "3.161.000.100",
+      "is_yonko": true
+    },
+    "job": "Charpentier",
+    "status": "vivant"
+  },
+  {
+    "id": 9,
+    "name": "Brook",
+    "size": "277cm",
+    "age": "90 ans",
+    "bounty": "383.000.000",
+    "crew": {
+      "id": 1,
+      "name": "L’équipage du Chapeau de Paille",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Mugiwara no Ichimi",
+      "total_prime": "3.161.000.100",
+      "is_yonko": true
+    },
+    "fruit": {
+      "id": 21,
+      "name": "Fruit de la Résurrection",
+      "description": "Permet au propriétaire de revenir à la vie une fois mort (ce pouvoir ne marche qu'une seule fois). Son possesseur peut faire sortir son âme de son corps pour lui faire traverser les murs et la faire revenir dans son corps comme il le souhaite. De même, si on lui coupe la tête, son fruit lui permet de ramener celle-ci sur ses épaules par la seule force de sa volonté (l'âme est toujours reliée à son corps). Si son pouvoir est combiné à une épée, il peut blesser en gelant tout ennemi qu'il touche grâce au froid glacial des tréfonds que son âme apporte à son épée.",
+      "type": "Paramecia",
+      "roman_name": "Yomi Yomi no Mi",
+      "filename": "https://images.api-onepiece.com/fruits/56fc9cdf59bcd8a6e53b3e7c31e11005.png"
+    },
+    "job": "Musicien",
+    "status": "vivant"
+  },
+  {
+    "id": 10,
+    "name": "Jinbe",
+    "size": "301cm",
+    "age": "46 ans",
+    "bounty": "1.100.000.000",
+    "crew": {
+      "id": 1,
+      "name": "L’équipage du Chapeau de Paille",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Mugiwara no Ichimi",
+      "total_prime": "3.161.000.100",
+      "is_yonko": true
+    },
+    "job": "Timonier",
+    "status": "vivant"
+  },
+  {
+    "id": 11,
+    "name": "Zeus",
+    "size": "232cm",
+    "age": "",
+    "bounty": "",
+    "crew": {
+      "id": 1,
+      "name": "L’équipage du Chapeau de Paille",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Mugiwara no Ichimi",
+      "total_prime": "3.161.000.100",
+      "is_yonko": true
+    },
+    "job": "Nami Arme",
+    "status": "vivant"
+  },
+  {
+    "id": 51,
+    "name": "Absalom",
+    "size": "195cm",
+    "age": "36 ans",
+    "bounty": "",
+    "crew": {
+      "id": 28,
+      "name": "Thriller Bark",
+      "description": null,
+      "status": "inconnu",
+      "number": "inconnu",
+      "roman_name": "Surirā Bāku",
+      "total_prime": "inconnu",
+      "is_yonko": false
+    },
+    "fruit": {
+      "id": 24,
+      "name": "Fruit de l'Invisibilité",
+      "description": "Permet à son utilisateur de se rendre invisible ainsi que tout ce qu'il touche (êtres vivants, armes à feu, etc.)",
+      "type": "Paramecia",
+      "roman_name": "Suke Suke no Mi"
+    },
+    "job": "Quatres Mystérieux",
+    "status": "décédé"
+  },
+  {
+    "id": 59,
+    "name": "Eustass Kidd",
+    "size": "205cm",
+    "age": "23 ans",
+    "bounty": "470.000.000",
+    "crew": {
+      "id": 33,
+      "name": "L’équipage de Kid",
+      "description": null,
+      "status": "actif",
+      "number": "22",
+      "roman_name": "Kiddo Kaizokudan",
+      "total_prime": "670.000.000",
+      "is_yonko": false
+    },
+    "fruit": {
+      "id": 26,
+      "name": "Magnéto-Fruit",
+      "description": "Permet à l'utilisateur de manipuler les forces magnétiques, pouvant ainsi attirer les métaux à lui mais également les repousser. Il peut également créer un golem de métaux lorsqu'une grande quantité est réunie.",
+      "type": "Paramecia",
+      "technicalFile": "https://images.api-onepiece.com/fruits/a2aa4468a770539b2ec7045d8517744c.jpg",
+      "roman_name": "Jiki Jiki no Mi",
+      "filename": "https://images.api-onepiece.com/fruits/79014303ec2ac76ecdefdb8b19928fb9.png"
+    },
+    "job": "Capitaine",
+    "status": "vivant"
+  },
+  {
+    "id": 62,
+    "name": "Wire",
+    "size": "",
+    "age": "",
+    "bounty": "",
+    "crew": {
+      "id": 33,
+      "name": "L’équipage de Kid",
+      "description": null,
+      "status": "actif",
+      "number": "22",
+      "roman_name": "Kiddo Kaizokudan",
+      "total_prime": "670.000.000",
+      "is_yonko": false
+    },
+    "job": "Capitaine",
+    "status": "vivant"
+  },
+  {
+    "id": 247,
+    "name": "Marchall D. Teach / Barbe Noire",
+    "size": "344cm",
+    "age": "40 ans",
+    "bounty": "2.247.600.000",
+    "crew": {
+      "id": 22,
+      "name": "L’équipage de Barbe Noire",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Kurohige Kaizokudan",
+      "total_prime": "2.445.800.000",
+      "is_yonko": true
+    },
+    "fruit": {
+      "id": 85,
+      "name": "Fruit des Ténèbres",
+      "description": "le corps de celui qui le mange se transforme en ténèbres. Il devient capable de modifier la gravité afin d'attirer à lui et d'absorber à peu près n'importe quoi dans un 'trou noir' et de les relâcher par la suite. Il permet aussi d'annuler les pouvoirs des autres utilisateurs de fruit du démon lorsqu'il les touche. Par ailleurs, il s'agit du seul Logia qui ne puisse pas éviter les coups physiques, son utilisateur acquiert dès lors une forte sensibilité à la douleur. À noter qu'il peut absorber le pouvoir du fruit du démon de son possesseur comme Marshall D. Teach le fera avec Barbe Blanche.",
+      "type": "Logia",
+      "roman_name": "Yami Yami no Mi",
+      "filename": "https://images.api-onepiece.com/fruits/d108706dfcaa5bcf3cddd184ddbb52a5.png"
+    },
+    "job": "Pirate",
+    "status": "vivant"
+  },
+  {
+    "id": 254,
+    "name": "Sanjuan Wolf",
+    "size": "18 000cm",
+    "age": "99 ans",
+    "crew": {
+      "id": 22,
+      "name": "L’équipage de Barbe Noire",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Kurohige Kaizokudan",
+      "total_prime": "2.445.800.000",
+      "is_yonko": true
+    },
+    "fruit": {
+      "id": 202,
+      "name": "Fruit du gigantisme",
+      "description": "C'est un fruit du démon qui permet à son utilisateur d'augmenter sa taille, faisant de lui un Homme Gigantifié",
+      "type": "Paramecia",
+      "roman_name": "Deka Deka no Mi"
+    },
+    "job": "Commandant 7e Navire",
+    "status": "vivant"
+  },
+  {
+    "id": 256,
+    "name": "Doc Q",
+    "size": "352cl",
+    "age": "28 ans",
+    "bounty": "72.000.000",
+    "crew": {
+      "id": 22,
+      "name": "L’équipage de Barbe Noire",
+      "description": null,
+      "status": "actif",
+      "number": "10",
+      "roman_name": "Kurohige Kaizokudan",
+      "total_prime": "2.445.800.000",
+      "is_yonko": true
+    },
+    "fruit": {
+      "id": 204,
+      "name": "Fruit de la maladie",
+      "description": "C'est un fruit du démon qui permet à celui qui l'a mangé de créer n'importe quelle forme de maladie contagieuse et virulante.",
+      "type": "Paramecia",
+      "roman_name": "Shiku Shiku no Mi"
+    },
+    "job": "Commandant 9e Navire",
+    "status": "vivant"
+  },
+  {
+    "id": 264,
+    "name": "Sanjuan Wolf",
+    "size": "",
+    "age": "",
+    "bounty": "",
+    "crew": {
+      "id": 5,
+      "name": "L’équipage des Pirates Roger",
+      "description": null,
+      "status": "dissous",
+      "number": "30",
+      "roman_name": "Rojā Kaizoku Dan",
+      "total_prime": "5.564.800.000",
+      "is_yonko": true
+    },
+    "job": null,
+    "status": "vivant"
+  },
+  {
+    "id": 290,
+    "name": "Portgas D. Ace",
+    "size": "185cm",
+    "age": "20 ans",
+    "bounty": "550.000.000",
+    "crew": {
+      "id": 16,
+      "name": "L’équipage de Barbe Blanche",
+      "description": null,
+      "status": "inconnu",
+      "number": "1600",
+      "roman_name": "Shirohige Kaizokudan",
+      "total_prime": "7.480.000.000",
+      "is_yonko": true
+    },
+    "fruit": {
+      "id": 82,
+      "name": "Pyro-Fruit",
+      "description": "le corps de celui qui le mange se transforme en feu. Il peut donc créer des déflagrations surpuissantes et contrôler les températures ambiantes. Il peut aussi utiliser son feu pour se propulser et aller beaucoup plus vite. Cependant, le feu ne résiste pas au magma.",
+      "type": "Logia",
+      "roman_name": "Mera Mera no Mi",
+      "filename": "https://images.api-onepiece.com/fruits/a3a4f5f2d3b965e3836613b5d3036348.jpg"
+    },
+    "job": "Commandant 2nd Navire",
+    "status": "décédé"
+  },
+  {
+    "id": 392,
+    "name": "Rob Lucci",
+    "size": "212cm",
+    "age": "30 ans",
+    "bounty": "",
+    "crew": {
+      "id": 90,
+      "name": "Cipher Pol",
+      "description": null,
+      "status": "actif",
+      "is_yonko": false
+    },
+    "fruit": {
+      "id": 99,
+      "name": "Fruit du Pachyderme",
+      "description": "celui qui le mange devient à moitié éléphant. Étant donné que son utilisateur est une épée, cela en a fait un être mi-épée mi-éléphant. Ayant acquis une conscience et donc une certaine intelligence, elle peut avoir une portée phénoménale.",
+      "type": "Zoan",
+      "roman_name": "Zo Zo no Mi"
+    },
+    "job": null,
+    "status": "vivant"
+  },
+  {
+    "id": 395,
+    "name": "Funckfreed",
+    "size": "",
+    "age": "",
+    "bounty": "",
+    "crew": {
+      "id": 90,
+      "name": "Cipher Pol",
+      "description": null,
+      "status": "actif",
+      "is_yonko": false
+    },
+    "fruit": {
+      "id": 99,
+      "name": "Fruit du Pachyderme",
+      "description": "celui qui le mange devient à moitié éléphant. Étant donné que son utilisateur est une épée, cela en a fait un être mi-épée mi-éléphant. Ayant acquis une conscience et donc une certaine intelligence, elle peut avoir une portée phénoménale.",
+      "type": "Zoan",
+      "roman_name": "Zo Zo no Mi"
+    },
+    "job": null,
+    "status": "vivant"
+  },
+  {
+    "id": 484,
+    "name": "Carotte",
+    "size": "127cm",
+    "age": " 11 ans",
+    "bounty": "",
+    "crew": {
+      "id": 97,
+      "name": "Archipel des Gecko",
+      "description": null,
+      "status": "actif",
+      "is_yonko": false
+    },
+    "job": "Habitant du vilalge de Sirop",
+    "status": "vivant"
+  },
+  {
+    "id": 603,
+    "name": "Zunesh",
+    "size": "35km",
+    "age": "1 000 ans",
+    "bounty": "",
+    "crew": {
+      "id": 121,
+      "name": "Zo",
+      "description": null,
+      "status": "actif",
+      "is_yonko": false
+    },
+    "job": "",
+    "status": "vivant"
+  },
+  {
+    "id": 662,
+    "name": "Sabo",
+    "size": "187cm",
+    "age": "22 ans",
+    "bounty": "602.000.000",
+    "crew": {
+      "id": 130,
+      "name": "Armée Révolutionnaire",
+      "description": null,
+      "status": "actif",
+      "is_yonko": false
+    },
+    "fruit": {
+      "id": 82,
+      "name": "Pyro-Fruit",
+      "description": "le corps de celui qui le mange se transforme en feu. Il peut donc créer des déflagrations surpuissantes et contrôler les températures ambiantes. Il peut aussi utiliser son feu pour se propulser et aller beaucoup plus vite. Cependant, le feu ne résiste pas au magma.",
+      "type": "Logia",
+      "roman_name": "Mera Mera no Mi",
+      "filename": "https://images.api-onepiece.com/fruits/a3a4f5f2d3b965e3836613b5d3036348.jpg"
+    },
+    "job": "Chef d'Etat Major",
+    "status": "vivant"
+  },
+  {
+    "id": 760,
+    "name": "Bigalo",
+    "size": "",
+    "age": "",
+    "bounty": "14.900.000",
+    "crew": {
+      "id": 149,
+      "name": "Equipage de Bigalo",
+      "description": null,
+      "status": "inconnu",
+      "is_yonko": false
+    },
+    "job": null,
+    "status": null
+  },
+  {
+    "id": 761,
+    "name": "Végapunk",
+    "size": "\"",
+    "age": "65",
+    "fruit": {
+      "id": 198,
+      "name": "Fruit du Ciboulot",
+      "description": "Le Nomi Nomi no Mi est un Fruit du Démon de type Paramecia qui permet au cerveau de celui qui l'a mangé de se développer indéfiniment au fur et à mesure qu'il ingère de nouvelles connaissances, transformant celui qui l'a mangé en Homme-Cerveau",
+      "type": "Paramecia",
+      "roman_name": "Nomi Nomi no Mi"
+    },
+    "job": "Scientifique",
+    "status": "mort"
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "title": "East Blue",
+    "saga_number": "1",
+    "saga_chapitre": "1 à 100",
+    "saga_volume": "1 à 12",
+    "saga_episode": "1 à 61"
+  },
+  {
+    "id": 2,
+    "title": "Alabasta",
+    "saga_number": "2",
+    "saga_chapitre": "101 à 216",
+    "saga_volume": "12 à 23",
+    "saga_episode": "62 à 143"
+  },
+  {
+    "id": 3,
+    "title": "Celestial Island",
+    "saga_number": "3",
+    "saga_chapitre": "217 à 303",
+    "saga_volume": "24 à 32",
+    "saga_episode": "144 à 206"
+  },
+  {
+    "id": 4,
+    "title": "Water Seven / CP9",
+    "saga_number": "4",
+    "saga_chapitre": "304 à 441",
+    "saga_volume": "33 à 46",
+    "saga_episode": "207 à 325"
+  },
+  {
+    "id": 5,
+    "title": "Thriller Bark",
+    "saga_number": "5",
+    "saga_chapitre": "442 à 490",
+    "saga_volume": "47 à 50",
+    "saga_episode": "326 à 389"
+  },
+  {
+    "id": 6,
+    "title": "War at the top",
+    "saga_number": "6",
+    "saga_chapitre": "491 à 597",
+    "saga_volume": "51 à 61",
+    "saga_episode": "390 à 516"
+  },
+  {
+    "id": 7,
+    "title": "Île des Hommes-Poissons",
+    "saga_number": "7",
+    "saga_chapitre": "598 à 653",
+    "saga_volume": "62 à 66",
+    "saga_episode": "517 à 574"
+  },
+  {
+    "id": 8,
+    "title": "Dressrosa / Pirate Alliance",
+    "saga_number": "8",
+    "saga_chapitre": "654 à 801",
+    "saga_volume": "66 à 80",
+    "saga_episode": "575 à 746"
+  },
+  {
+    "id": 9,
+    "title": "Four Emperors",
+    "saga_number": "9",
+    "saga_chapitre": "802 à ?",
+    "saga_volume": "81 à ?",
+    "saga_episode": "747 à ?"
+  },
+  {
+    "id": 10,
+    "title": "Final Saga",
+    "saga_number": "10",
+    "saga_chapitre": "-",
+    "saga_volume": "-",
+    "saga_episode": "-"
+  }
+]

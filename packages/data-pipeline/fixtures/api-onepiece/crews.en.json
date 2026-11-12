@@ -1,0 +1,97 @@
+[
+  {
+    "id": 1,
+    "name": "The Chapeau de Paille crew",
+    "description": null,
+    "status": "assets",
+    "roman_name": "Mugiwara no Ichimi",
+    "total_prime": "3.161.000.100",
+    "number": "10",
+    "is_yonko": true
+  },
+  {
+    "id": 5,
+    "name": "The Pirates Roger crew",
+    "description": null,
+    "status": "dissolved",
+    "roman_name": "Rojā Kaizoku Dan",
+    "total_prime": "5.564.800.000",
+    "number": "30",
+    "is_yonko": true
+  },
+  {
+    "id": 16,
+    "name": "Whitebeard's crew",
+    "description": null,
+    "status": "unknown",
+    "roman_name": "Shirohige Kaizokudan",
+    "total_prime": "7.480.000.000",
+    "number": "1600",
+    "is_yonko": true
+  },
+  {
+    "id": 22,
+    "name": "Blackbeard's crew",
+    "description": null,
+    "status": "assets",
+    "roman_name": "Kurohige Kaizokudan",
+    "total_prime": "2.445.800.000",
+    "number": "10",
+    "is_yonko": true
+  },
+  {
+    "id": 28,
+    "name": "Thriller Bark",
+    "description": null,
+    "status": "unknown",
+    "roman_name": "Surirā Bāku",
+    "total_prime": "inconnu",
+    "number": "inconnu",
+    "is_yonko": false
+  },
+  {
+    "id": 33,
+    "name": "The Kid crew",
+    "description": null,
+    "status": "assets",
+    "roman_name": "Kiddo Kaizokudan",
+    "total_prime": "670.000.000",
+    "number": "22",
+    "is_yonko": false
+  },
+  {
+    "id": 90,
+    "name": "Cipher Pol",
+    "description": null,
+    "status": "actif",
+    "is_yonko": false
+  },
+  {
+    "id": 97,
+    "name": "Archipel des Gecko",
+    "description": null,
+    "status": "actif",
+    "is_yonko": false
+  },
+  {
+    "id": 121,
+    "name": "Zo",
+    "description": null,
+    "status": "actif",
+    "is_yonko": false
+  },
+  {
+    "id": 130,
+    "name": "Armée Révolutionnaire",
+    "description": null,
+    "status": "actif",
+    "is_yonko": false
+  },
+  {
+    "id": 149,
+    "name": "Equipage de Bigalo",
+    "description": null,
+    "status": "inconnu",
+    "is_yonko": false
+  }
+]

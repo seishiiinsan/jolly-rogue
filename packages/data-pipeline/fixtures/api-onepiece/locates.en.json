@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Goat Island",
+    "region_name": "",
+    "roman_name": "Gōto-jima",
+    "sea_name": "East Blue",
+    "affiliation_name": ""
+  },
+  {
+    "id": 2,
+    "name": "Shell Town",
+    "region_name": "Yotsuba Island",
+    "roman_name": "Sheruzu Taun",
+    "sea_name": "East Blue",
+    "affiliation_name": ""
+  },
+  {
+    "id": 3,
+    "name": "Shimotsuki",
+    "region_name": "",
+    "roman_name": "Shimotsuki Mura",
+    "sea_name": "East Blue",
+    "affiliation_name": ""
+  },
+  {
+    "id": 106,
+    "name": "Goat Island",
+    "region_name": "",
+    "roman_name": "Gōto-jima",
+    "sea_name": "East Blue",
+    "affiliation_name": ""
+  }
+]
