@@ -49,6 +49,8 @@ services:
     volumes:
       - ./data/cache:/data/cache
       - ./data/exports:/data/exports
+      # Overrides montés en lecture seule : une correction s'applique sans reconstruire l'image.
+      - ./packages/data-pipeline/overrides:/app/overrides:ro
     depends_on:
       db:
         condition: service_healthy
