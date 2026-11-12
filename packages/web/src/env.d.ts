@@ -8,3 +8,13 @@ declare module 'virtual:canon-names' {
   };
   export default names;
 }
+
+declare module 'virtual:art' {
+  const art: {
+    /** Portrait local par slug de perso ou id d'ennemi (URL relative). */
+    portraits: Record<string, string>;
+    /** Décors locaux : `home`, `combat`. */
+    backgrounds: Record<string, string>;
+  };
+  export default art;
+}

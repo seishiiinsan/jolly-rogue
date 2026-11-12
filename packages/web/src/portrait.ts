@@ -1,8 +1,14 @@
 import type { Archetype } from '@jolly-rogue/game-data';
+import art from 'virtual:art';
 import { esc } from './content.js';
 
+/** Illustration locale déposée par l'utilisateur pour cette clé (public/art/portraits), si elle existe. */
+export const localPortrait = (key: string): string | undefined => art.portraits[key];
+export const localBackground = (name: 'home' | 'combat'): string | undefined => art.backgrounds[name];
+
 /**
- * Portraits procéduraux ORIGINAUX : une silhouette de pirate générique par archétype, teintée par
+ * Portraits : l'illustration locale de l'utilisateur si elle existe, sinon un portrait procédural
+ * ORIGINAL : une silhouette de pirate générique par archétype, teintée par
  * la faction, avec le monogramme du nom. Ce ne sont pas des représentations des personnages de
  * l'œuvre (aucun trait distinctif repris) : le cadrage interdit tout visuel officiel ou approchant.
  */
@@ -44,6 +50,8 @@ export interface PortraitOptions {
 }
 
 export function portrait(o: PortraitOptions): string {
+  const local = o.locked ? undefined : localPortrait(o.key);
+  if (local) return `<img class="portrait" src="${esc(local)}" alt="" loading="lazy" />`;
   const h = hash(o.key);
   const rays = Array.from({ length: 9 }, (_, i) => {
     const angle = ((h >>> (i * 3)) % 40) + i * 40;

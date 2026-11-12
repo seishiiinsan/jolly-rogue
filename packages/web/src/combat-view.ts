@@ -1,6 +1,7 @@
 import type { CombatEvent, CombatUnitInfo } from '@jolly-rogue/engine';
 import { ARCHETYPE_LABEL, archetypeIcon, characterName, characterOf, enemyName, enemyOf, esc, factionStyle, skillOf } from './content.js';
-import { portrait } from './portrait.js';
+import { localBackground, localPortrait, portrait } from './portrait.js';
+import { type Stage, createStage } from './stage.js';
 import { type Beat, type Fx, type UnitState, applyBeat, buildTimeline, describeBeat, finalStates, initialStates } from './timeline.js';
 
 /** Durée d'un temps d'animation à vitesse ×1, en millisecondes. */
@@ -24,6 +25,8 @@ function unitHtml(u: CombatUnitInfo): string {
 
 export interface CombatViewOptions {
   wave: number;
+  /** Vague de boss : décor de tempête. */
+  storm: boolean;
   events: readonly CombatEvent[];
   onContinue(): void;
 }
@@ -54,6 +57,7 @@ export function mountCombat(root: HTMLElement, options: CombatViewOptions): () =
         </div>
       </header>
       <div class="combat-layout">
+        <div class="stage-host"></div>
         <div class="battlefield">
           <div class="side side-enemy deck"><span class="deck-label">Pont ennemi</span>${row('enemy', 'back')}${row('enemy', 'front')}</div>
           <div class="banner" aria-live="polite"></div>
@@ -130,6 +134,36 @@ export function mountCombat(root: HTMLElement, options: CombatViewOptions): () =
     }
   };
 
+  // Scène PixiJS. Si elle ne peut pas démarrer (pas de WebGL ni de canvas), l'affichage DOM
+  // ci-dessus reste visible : c'est le mode « tactique ».
+  let stage: Stage | null = null;
+  let unmounted = false;
+  const section = root.querySelector<HTMLElement>('.combat');
+  const stageHost = root.querySelector<HTMLElement>('.stage-host');
+  // Le conteneur doit être visible avant l'initialisation : PixiJS se dimensionne dessus.
+  section?.classList.add('has-stage');
+  const stageReady: Promise<void> = stageHost
+    ? createStage(
+        stageHost,
+        timeline.units.map((u) => ({
+          info: u,
+          name: unitName(u),
+          color: Number.parseInt(factionStyle(u.kind === 'character' ? characterOf(u.ref).faction : null).color.slice(1), 16),
+          boss: u.kind === 'enemy' && enemyOf(u.ref).boss === true,
+          image: localPortrait(u.ref),
+        })),
+        { storm: options.storm, background: localBackground('combat'), skillName: labels.skill },
+      ).then(
+        (created) => {
+          if (unmounted) created.destroy();
+          else stage = created;
+        },
+        () => {
+          section?.classList.remove('has-stage');
+        },
+      )
+    : Promise.resolve();
+
   let speed = 1;
   let index = 0;
   let timer: number | undefined;
@@ -172,7 +206,9 @@ export function mountCombat(root: HTMLElement, options: CombatViewOptions): () =
       if (state) paint(beat.actor, state);
     }
     appendLog(beat);
-    timer = window.setTimeout(step, (BEAT_MS * beat.ticks) / speed);
+    const duration = (BEAT_MS * beat.ticks) / speed;
+    stage?.play(beat, duration);
+    timer = window.setTimeout(step, duration);
   };
 
   const skip = (): void => {
@@ -180,7 +216,9 @@ export function mountCombat(root: HTMLElement, options: CombatViewOptions): () =
     window.clearTimeout(timer);
     for (const beat of timeline.beats.slice(index)) appendLog(beat);
     index = timeline.beats.length;
-    paintAll(finalStates(timeline));
+    const last = finalStates(timeline);
+    paintAll(last);
+    stage?.finish(last, victory);
     finish();
   };
 
@@ -195,9 +233,14 @@ export function mountCombat(root: HTMLElement, options: CombatViewOptions): () =
     else if ('continue' in target.dataset) options.onContinue();
   };
   root.addEventListener('click', onClick);
-  timer = window.setTimeout(step, 300);
+  void stageReady.then(() => {
+    if (!unmounted && !finished) timer = window.setTimeout(step, 300);
+  });
 
   return () => {
+    unmounted = true;
+    stage?.destroy();
+    stage = null;
     window.clearTimeout(timer);
     root.removeEventListener('click', onClick);
     root.style.removeProperty('--speed');

@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@jolly-rogue/engine": "workspace:*",
-    "@jolly-rogue/game-data": "workspace:*"
+    "@jolly-rogue/game-data": "workspace:*",
+    "pixi.js": "^8.23.0"
   },
   "devDependencies": {
     "@jolly-rogue/db": "workspace:*",

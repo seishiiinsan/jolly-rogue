@@ -1,6 +1,6 @@
 # @jolly-rogue/web
 
-Front jouable du prototype J1 : Vite + TypeScript, HTML/CSS et DOM natif (pas de framework, pas de PixiJS).
+Front jouable du prototype J1 : Vite + TypeScript, HTML/CSS et DOM natif pour les écrans, PixiJS pour la scène de combat (pas de framework UI).
 Aucun back : une partie se joue entièrement dans le navigateur.
 
 Le front **affiche et ne calcule rien** :
@@ -49,15 +49,17 @@ pnpm --filter @jolly-rogue/web e2e
 | --- | --- |
 | Accueil | Menu sur décor marin : nouvelle traversée (seed aléatoire), rejouer une seed, collection, à propos ; meilleur score |
 | Partie | Prochaine vague, équipage sur deux lignes, synergies ; recrutement (3 cartes + « Aucun », remplacement si l'équipe est pleine) puis placement (clic sur un pirate, puis « changer de ligne » ou clic sur un autre pour échanger) |
-| Combat | Rejeu du journal : cartes qui avancent, dégâts, boucliers, morts ; ×1 / ×2 / « Passer » ; journal textuel |
+| Combat | Rejeu du journal dans une scène PixiJS : élans, impacts, particules, caméra ; ×1 / ×2 / « Passer » ; journal textuel |
 | Collection | Cartes découvertes ou non par rareté, fragments, carte au choix contre fragments |
 | Fin | Coffre de fin de partie, vagues gagnées, score, seed, « Copier la partie » (seed + choix en JSON, à joindre aux retours de playtest) |
 | À propos | Mention fan game, sources et licences (CC BY-SA pour le One Piece Wiki) |
 
-## Décor et portraits
+## Direction artistique, scène de combat et illustrations
 
-- Décor (`src/scene.ts`, `src/styles.css`) : ciel, soleil, nuages, îles, mer animée, navire et ponts en bois, entièrement en SVG/CSS maison. L'ambiance change avec la partie : jour, crépuscule après la vague 10, nuit après la vague 20, tempête sur les vagues de boss. `prefers-reduced-motion` coupe les animations.
-- Portraits (`src/portrait.ts`) : silhouettes de pirate **génériques et originales**, une par archétype, teintées par la faction, avec le monogramme du nom. Ce ne sont pas des représentations des personnages de l'œuvre : aucun visuel officiel ni approchant (cadrage §7).
+- **Direction « nuit en mer »** (`src/styles.css`, `src/scene.ts`) : bois foncé, or, lanternes, cartes à cadre épais par rareté. Décor hors combat en SVG/CSS maison : ciel étoilé, lune, îles, mer animée. L'ambiance change avec la partie (crépuscule après la vague 10, nuit noire après la vague 20, tempête sur les boss).
+- **Scène de combat PixiJS** (`src/stage.ts`) : mer et ponts de navire, lanternes, élans, impacts, particules, chiffres, tremblement de caméra, pluie et éclairs sur les boss. Elle est pilotée par les temps du journal et ne calcule aucune règle. Si PixiJS ne démarre pas, l'affichage DOM du combat prend le relais ; il reste de toute façon dans la page pour les lecteurs d'écran. `prefers-reduced-motion` coupe secousses, particules et éclairs.
+- **Portraits par défaut** (`src/portrait.ts`) : silhouettes de pirate génériques et originales, une par archétype, teintées par la faction. Ce ne sont pas des représentations des personnages de l'œuvre.
+- **Illustrations locales** : tu peux déposer tes propres images dans `public/art/` (portraits par slug, décors `home` et `combat`), voir [`public/art/README.md`](public/art/README.md). Ce dossier est ignoré par Git : le dépôt ne contient et ne télécharge aucune image.
 
 ## Collection (provisoire)
 
@@ -67,9 +69,10 @@ C'est une avance sur J3 : les valeurs (`COLLECTION_RULES`) sont des propositions
 
 ## Dépendances
 
+- `pixi.js` : rendu WebGL de la scène de combat (avance sur J4, à la demande).
 - `vite` : serveur de dev et build ; aucun framework UI, le jeu tient en quelques écrans rendus par gabarits de chaînes.
 - `@playwright/test` : test de bout en bout. Version épinglée (1.63.0) pour correspondre au Chromium préinstallé des sessions cloud.
 
 ## Assets
 
-Aucune image, police ni icône tierce : polices système, icônes d'archétype en SVG dessinées pour le jeu (`src/content.ts`), couleurs et motifs de faction maison.
+Aucune image, police ni icône tierce dans le dépôt : polices système, icônes et décors dessinés pour le jeu. Les seules images possibles sont celles que tu déposes toi-même dans `public/art/` (non commitées).

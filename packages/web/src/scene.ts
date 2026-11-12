@@ -31,6 +31,7 @@ export function sceneHtml(): string {
   return `
     <div class="scene" aria-hidden="true">
       <div class="sky"></div>
+      <div class="stars"></div>
       <div class="sun"></div>
       <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
       <svg class="islands" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -50,10 +51,10 @@ export function sceneHtml(): string {
 /** Tuiles de vagues par ambiance (les data-URI ne lisent pas les variables CSS). */
 export function waveStyles(): string {
   const palettes: Record<Mood, [string, string, string]> = {
-    day: ['#3f8fb5', '#2c779e', '#1d5f86'],
-    dusk: ['#7a6a8c', '#5a4f78', '#3d3a62'],
-    storm: ['#4d6672', '#3a515c', '#283b45'],
-    night: ['#27456b', '#1c3454', '#12243f'],
+    day: ['#1b3a6b', '#132c55', '#0c1f3f'],
+    dusk: ['#3a2a55', '#2a1f45', '#1b1533'],
+    storm: ['#2a3a44', '#1e2c34', '#131d23'],
+    night: ['#101d3d', '#0b152e', '#070e20'],
   };
   return (Object.entries(palettes) as [Mood, [string, string, string]][])
     .map(

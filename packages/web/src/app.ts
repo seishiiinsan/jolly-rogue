@@ -14,6 +14,7 @@ import {
 import { cardBody, cardClass, characterCard, enemyCard } from './cards.js';
 import { mountCombat } from './combat-view.js';
 import { type ChestResult, COLLECTION_RULES, type Collection, craftCard, loadCollection, openChest, saveCollection } from './collection.js';
+import { localBackground } from './portrait.js';
 import { type Mood, sceneHtml, shipSvg, waveStyles } from './scene.js';
 import { FAN_GAME_NOTICE, RARITY_LABEL, bonusText, canonSources, characterName, characterOf, esc, factionName, factionStyle, gameData } from './content.js';
 
@@ -70,6 +71,13 @@ export function startApp(root: HTMLElement): void {
   style.textContent = waveStyles();
   document.head.append(style);
   root.insertAdjacentHTML('beforeend', sceneHtml());
+  // Décor local de l'utilisateur (public/art/backgrounds/home.*), s'il existe.
+  const homeBackground = localBackground('home');
+  const sceneNode = root.querySelector<HTMLElement>('.scene');
+  if (homeBackground && sceneNode) {
+    sceneNode.classList.add('has-image');
+    sceneNode.style.backgroundImage = `url("${homeBackground}")`;
+  }
   const view = document.createElement('main');
   const footer = document.createElement('footer');
   footer.className = 'notice';
@@ -490,6 +498,7 @@ export function startApp(root: HTMLElement): void {
     if (state.screen === 'combat' && state.combat && run) {
       unmountCombat = mountCombat(view, {
         wave: state.combat.wave,
+        storm: isBossWave(state.combat.wave, gameData),
         events: state.combat.events,
         onContinue: () => {
           state.screen = run.phase === 'over' ? 'end' : 'game';

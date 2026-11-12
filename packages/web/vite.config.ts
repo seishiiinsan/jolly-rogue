@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { CanonExport } from '@jolly-rogue/db';
@@ -35,10 +35,37 @@ function canonNames(): Plugin {
   };
 }
 
+const webRoot = path.dirname(fileURLToPath(import.meta.url));
+const ART_EXTENSIONS = new Set(['.webp', '.png', '.jpg', '.jpeg', '.avif']);
+
+/**
+ * Module virtuel `virtual:art` : inventaire des illustrations locales déposées dans `public/art/`
+ * (dossier ignoré par Git, voir son README). Le dépôt n'en fournit aucune.
+ */
+function localArt(): Plugin {
+  const id = 'virtual:art';
+  const scan = (dir: string): Record<string, string> => {
+    const full = path.join(webRoot, 'public', 'art', dir);
+    if (!existsSync(full)) return {};
+    return Object.fromEntries(
+      readdirSync(full)
+        .filter((file) => ART_EXTENSIONS.has(path.extname(file).toLowerCase()))
+        .sort()
+        .map((file) => [path.basename(file, path.extname(file)), `art/${dir}/${file}`]),
+    );
+  };
+  return {
+    name: 'local-art',
+    resolveId: (source) => (source === id ? `\0${id}` : undefined),
+    load: (resolved) =>
+      resolved === `\0${id}` ? `export default ${JSON.stringify({ portraits: scan('portraits'), backgrounds: scan('backgrounds') })};` : undefined,
+  };
+}
+
 export default defineConfig({
   // Chemins relatifs : le build statique se sert depuis n'importe quel dossier (playtest J1).
   base: './',
-  plugins: [canonNames()],
+  plugins: [canonNames(), localArt()],
   // `source` : moteur et données importés depuis leurs sources TS, sans build préalable.
   resolve: { conditions: ['source', 'module', 'browser', 'development|production'] },
   server: { host: '127.0.0.1', port: 5173, strictPort: true, fs: { allow: [repoRoot] } },
