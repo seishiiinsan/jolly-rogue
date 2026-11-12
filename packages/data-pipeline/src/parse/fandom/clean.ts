@@ -6,7 +6,7 @@ import { parseTemplate, sameTemplateName, splitTopLevel, stripNoise, topLevelTem
  */
 
 /** Templates supprimés avec leur contenu : références, marqueurs, mise en forme. */
-const DROPPED = ['Qref', 'Refn', 'Web ref', 'Ref', 'Cite', 'Status', 'Hide', 'B', 'C', 'Sic', 'Clarify', 'Citation needed'];
+const DROPPED = ['Qref', 'Refn', 'Web ref', 'Ref', 'Cite', 'Status', 'Hide', 'B', 'Sic', 'Clarify', 'Citation needed'];
 
 /** Rend un template en texte : seuls quelques templates « porteurs de texte » sont conservés. */
 function renderTemplate(source: string): string {
@@ -16,6 +16,11 @@ function renderTemplate(source: string): string {
   if (sameTemplateName('Nihongo', t.name)) return t.positional[0] ?? '';
   // {{Ruby|D|ディー}} → D
   if (sameTemplateName('Ruby', t.name)) return t.positional[0] ?? '';
+  // {{C|3}} (grade de prime des Marines) → ★★★
+  if (sameTemplateName('C', t.name)) {
+    const n = Number(t.positional[0]);
+    return Number.isInteger(n) && n > 0 && n <= 10 ? '★'.repeat(n) : '';
+  }
   // {{W|Page|Libellé}} → Libellé ou Page
   if (sameTemplateName('W', t.name)) return t.positional[1] ?? t.positional[0] ?? '';
   // Tout autre template (mise en forme, navigation…) est retiré.

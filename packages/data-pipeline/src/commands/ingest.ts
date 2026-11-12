@@ -23,9 +23,8 @@ export async function ingestCommand({ databaseUrl, options }: CommandContext): P
       const s = await ingestFandom(db, http, {}, (m) => console.log(m));
       console.log(
         `ingest fandom : ${s.requests} requêtes (${s.fromCache} depuis le cache), ${s.rawInserted} nouvelles dans raw, ` +
-          `${s.listed} pages listées (${s.excludedSubpages} sous-pages et ${s.excludedNonCanon} non canon exclues), ` +
-          `${s.pages} pages lues + ${s.templates} templates Tabs Top, ${s.records} lignes dans staging.fandom, ` +
-          `${s.rejected} rejetées (voir pipeline report)`,
+          `${s.listed} pages listées (${s.excludedSubpages} sous-pages exclues), ${s.pages} pages lues + ${s.templates} templates Tabs Top, ${s.records} lignes dans staging.fandom, ` +
+          `${s.excludedNonCanon} pages non canon écartées, ${s.rejected} rejetées (voir pipeline report)`,
       );
       return;
     }

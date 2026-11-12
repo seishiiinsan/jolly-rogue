@@ -77,6 +77,21 @@ export function templatesToFetch(pages: readonly WikiPage[]): string[] {
   return [...out].sort();
 }
 
+/** Chapitre de début lu dans l'infobox (manga), quel que soit le kind. */
+export function debutChapterOf(record: FandomRecord): number | null {
+  const d = record.data as { debutChapter?: number | null; usageDebutChapter?: number | null; fruitDebutChapter?: number | null };
+  return d.debutChapter ?? d.usageDebutChapter ?? d.fruitDebutChapter ?? null;
+}
+
+/**
+ * Non canon = dans un arbre « Non-Canon » ET sans chapitre de début. Les deux signaux seuls se
+ * trompent : l'arbre contient des persos canon apparus dans un film (Zoro, Brook…), et des persos
+ * canon hors manga (Vivre Card, SBS : Hanafuda, Vegapants…) n'ont pas de chapitre de début.
+ */
+export function isExcludedNonCanon(title: string, record: FandomRecord, nonCanon: ReadonlySet<string>): boolean {
+  return nonCanon.has(title) && debutChapterOf(record) === null;
+}
+
 class FandomFetcher {
   readonly stats: FandomIngestStats = {
     requests: 0,
@@ -215,14 +230,15 @@ export async function fetchAndParseFandom(
 ): Promise<FandomIngestStats> {
   const f = new FandomFetcher(db, http, log);
 
+  // Le non-canon n'est pas exclu au listing : les arbres « Non-Canon » contiennent aussi des
+  // personnages canon (Zoro est dans « Non-Canon First Mates »). Voir isExcludedNonCanon.
   let titles: string[];
+  let nonCanon = new Set<string>();
   if (options.titles) {
     titles = options.titles;
   } else {
-    const listed = await f.listInfoboxPages();
-    const nonCanon = await f.listNonCanon();
-    titles = listed.filter((t) => !nonCanon.has(t));
-    f.stats.excludedNonCanon = listed.length - titles.length;
+    titles = await f.listInfoboxPages();
+    nonCanon = await f.listNonCanon();
   }
   log(`  ${titles.length} pages à récupérer`);
 
@@ -238,8 +254,12 @@ export async function fetchAndParseFandom(
   }));
 
   const pending: { page: FetchedPage; template: string }[] = [];
+  const excluded = new Set<string>();
   const collect = (page: FetchedPage, parsed: { records: FandomRecord[]; rejections: FandomRejection[] }): void => {
-    for (const r of parsed.records) records.push({ ...r, page });
+    for (const r of parsed.records) {
+      if (isExcludedNonCanon(page.title, r, nonCanon)) excluded.add(page.title);
+      else records.push({ ...r, page });
+    }
     for (const r of parsed.rejections) {
       rejections.push({ kind: r.kind, externalId: String(page.pageId), errors: r.errors, rawResponseId: page.rawResponseId });
     }
@@ -264,6 +284,7 @@ export async function fetchAndParseFandom(
     }
   }
 
+  f.stats.excludedNonCanon = excluded.size;
   const written = await db.transaction((tx) => writeFandomStaging(tx, records, rejections));
   f.stats.records = written.records;
   f.stats.rejected = written.rejected;

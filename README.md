@@ -65,11 +65,14 @@ docker compose run --rm pipeline ingest --source=fandom
 ```
 
 - Listing : pages de l'espace principal qui transcluent `Template:Char Box`, `Devil Fruit Box` ou `Crew Box`
-  (`list=embeddedin`), sans les sous-pages d'onglets (`…/Gallery`) ni les membres des arbres
-  `Category:Non-Canon Characters`, `Non-Canon Devil Fruits`, `Non-Canon Pirate Crews`.
+  (`list=embeddedin`), sans les sous-pages d'onglets (`…/Gallery`).
+- Non canon : une page est écartée si elle est dans un arbre `Category:Non-Canon Characters`, `Non-Canon Devil Fruits`
+  ou `Non-Canon Pirate Crews` **et** que son infobox n'a aucun chapitre de début. L'arbre seul exclurait des persos
+  canon apparus dans un film (Zoro est dans « Non-Canon First Mates ») ; le chapitre seul exclurait le canon hors
+  manga (Vivre Card, SBS).
 - Wikitext lu par lots de 50 titres (`prop=revisions`), avec les catégories Haki. Pour les persos et équipages
   majeurs, l'infobox est dans `Template:<Nom> Tabs Top`, récupéré dans une seconde passe.
-- Environ 150 à 400 requêtes au premier lancement (1 requête/s), aucune ensuite grâce au cache.
+- Environ 370 requêtes au premier lancement (1 requête/s, ~7 min), aucune ensuite grâce au cache.
 - Une page sans infobox lisible ou avec une valeur au format inconnu est rejetée (`staging.rejections`,
   listée dans le rapport) sans bloquer le lot.
 - Règles de lecture : âge et taille = **dernière valeur** de la liste du wiki ; prime actuelle = non barrée

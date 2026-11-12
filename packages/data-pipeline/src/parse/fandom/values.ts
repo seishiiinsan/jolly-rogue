@@ -23,23 +23,27 @@ const isBlank = (raw: string | undefined): raw is undefined => raw === undefined
 export type VitalStatus = 'alive' | 'deceased' | 'unknown';
 
 /**
- * `status` de Char Box : absent → alive (défaut du template), 1/unknown, 2/dead/deceased,
- * 3/alive (voir Template:Char Box, `#switch`).
+ * `status` de Char Box, rendu comme le `#switch` du template : 1/unknown → unknown,
+ * 2/dead/deceased → deceased, tout le reste (absent, 3, alive, valeur inattendue) → alive.
  */
-export function parseStatus(raw: string | undefined): VitalStatus | undefined {
+export function parseStatus(raw: string | undefined): VitalStatus {
   if (isBlank(raw)) return 'alive';
   const v = cleanText(raw).toLowerCase();
   if (v === '1' || v === 'unknown') return 'unknown';
   if (v === '2' || v === 'dead' || v === 'deceased') return 'deceased';
-  if (v === '3' || v === 'alive') return 'alive';
-  return undefined;
+  return 'alive';
 }
 
-/** Texte nettoyé du dernier élément d'une liste, sans qualificatifs finaux. */
+/**
+ * Texte nettoyé du dernier élément d'une liste, sans qualificatifs finaux. Un élément réduit à
+ * une parenthèse (« (biologically 28) ») garde son contenu.
+ */
 function lastItem(raw: string): string | null {
   const items = splitItems(raw);
   const last = items.at(-1);
-  return last === undefined ? null : extractQualifiers(cleanText(last)).text;
+  if (last === undefined) return null;
+  const cleaned = cleanText(last);
+  return extractQualifiers(cleaned).text || cleaned.replace(/[()]/g, '').trim();
 }
 
 /** Âge : dernière valeur de la liste (« 7 (debut); 17 (pre-timeskip); 19 (post-timeskip) » → 19). */
@@ -48,7 +52,8 @@ export function parseLastAge(raw: string | undefined): number | null | undefined
   const last = lastItem(raw);
   if (last === null || UNKNOWN_TEXT.test(last)) return null;
   const m = /(\d[\d,]*)/.exec(last);
-  if (!m?.[1]) return undefined;
+  // Sans nombre (« Even he does not know », « Multiple centuries ») : âge inconnu.
+  if (!m?.[1]) return null;
   const n = Number(m[1].replace(/,/g, ''));
   return Number.isSafeInteger(n) ? n : undefined;
 }
@@ -109,10 +114,13 @@ function starRankOf(raw: string): number | null {
  */
 export function parseBounties(raw: string | undefined, refs: RefIndex, withChapter = true): Bounty[] | undefined {
   if (isBlank(raw)) return [];
+  // Primes par section (« '''Main Crew:''' … '''Organization:''' … ») : seule la première est lue.
+  const sections = raw.split(/'{3}[^'\n]+:'{3}/);
+  const body = sections.length > 1 ? (sections[1] ?? '') : raw;
   const out: Bounty[] = [];
   let pendingStars: { starRank: number; isMinimum: boolean; isCurrent: boolean } | null = null;
 
-  for (const item of splitItems(raw)) {
+  for (const item of splitItems(body)) {
     if (isNonCanonItem(item)) continue;
     // Refn (détail des primes d'un équipage) : son contenu n'appartient pas à l'élément.
     const own = withoutTemplates(item, ['Refn']);
