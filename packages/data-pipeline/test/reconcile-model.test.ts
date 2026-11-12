@@ -26,7 +26,7 @@ function fandomFromFixtures(): FandomRow[] {
       fetchedAt: new Date(FIXTURE_FETCHED_AT),
       data: r.data,
     }));
-  }) as FandomRow[];
+  });
 }
 
 const emptyState = (): ReconcileInput['existing'] => ({

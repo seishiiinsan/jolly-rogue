@@ -203,7 +203,7 @@ async function syncEntities(
       const diff = Object.fromEntries(Object.entries(values).filter(([k, v]) => !equal(row[k], v)));
       if (Object.keys(diff).length === 0) stats.unchanged++;
       else {
-        await tx.update(table).set(diff as never).where(eq(table.id, e.canonId));
+        await tx.update(table).set(diff).where(eq(table.id, e.canonId));
         stats.updated++;
       }
       continue;

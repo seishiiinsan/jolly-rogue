@@ -92,7 +92,7 @@ export function parseFandomPage(page: WikiPage, template?: WikiPage): PageParse 
       refs,
     });
     if (result.success) {
-      records.push({ kind, data: result.data, infoboxPage: { title: source.title, revId: source.revId } } as FandomRecord);
+      records.push({ kind, data: result.data, infoboxPage: { title: source.title, revId: source.revId } });
     } else {
       rejections.push({
         kind,

@@ -7,7 +7,6 @@ import { slugify } from '../slug.js';
 import {
   type Correction,
   type EntityName,
-  type FieldPriority,
   type MatchedEntity,
   OVERRIDE_SOURCE,
   type ReconcileConfig,
@@ -129,11 +128,9 @@ export interface ReconcileModel {
 
 // --- Utilitaires -------------------------------------------------------------
 
-const FANDOM_KIND_OF: Record<MatchedEntity, FandomKind> = {
-  devil_fruits: 'devil_fruit',
-  crews: 'crew',
-  characters: 'character',
-};
+/** Libellé d'une entité pour le rapport : son nom s'il est connu, sinon sa clé. */
+const labelOf = (name: unknown, fallback: string | number): string =>
+  typeof name === 'string' && name !== '' ? name : String(fallback);
 
 const apiKey = (entity: EntityName, id: string): Key => `${entity}/${API_ONEPIECE_SOURCE}:${id}`;
 const fandomKey = (entity: EntityName, pageId: number): Key => `${entity}/${FANDOM_SOURCE}:${pageId}`;
@@ -221,7 +218,7 @@ export function buildReconcileModel(input: ReconcileInput): ReconcileModel {
     differs: (a: T, b: T) => boolean = (a, b) => !sameValue(a, b),
     show: (v: T) => string = display,
   ): { value: T | null; prov: Provenance | undefined } => {
-    const order = (config.priority as FieldPriority)[entity][field as never] as ReconcileSource[];
+    const order = config.priority[entity][field as never] as ReconcileSource[];
     const check = CONSTRAINTS[field];
     const present = order.flatMap((source) => {
       const c = candidates[source];
@@ -382,7 +379,7 @@ export function buildReconcileModel(input: ReconcileInput): ReconcileModel {
         canonId,
         slug: slugFor(entity, canonId, p.baseSlug, p.externalId, `${entity.replace(/_/g, '-')}-${p.externalId}`),
         baseSlug: p.baseSlug,
-        label: String(values['nameEn'] ?? p.externalId),
+        label: labelOf(values['nameEn'], p.externalId),
         values,
         refs: refs?.(p) ?? {},
         externalIds: externalIdsOf(p.externalId, undefined),
@@ -822,7 +819,7 @@ export function buildReconcileModel(input: ReconcileInput): ReconcileModel {
       canonId: g.canonId,
       slug: g.slug,
       baseSlug: g.baseSlug,
-      label: g.fandom?.title ?? String(build(values)['nameEn'] ?? g.key),
+      label: g.fandom?.title ?? labelOf(build(values)['nameEn'], g.key),
       values: build(values),
       refs,
       externalIds: externalIdsOf(g.api?.externalId, g.fandom?.pageId),

@@ -123,6 +123,31 @@ Après un changement de code de la pipeline, reconstruire l'image :
 docker compose build pipeline
 ```
 
+## Vérifications
+
+À lancer avant chaque PR ; la CI (`.github/workflows/ci.yml`) exécute les mêmes commandes sur chaque push et PR vers `main`, avec un PostgreSQL de service pour que les tests d'intégration tournent réellement.
+
+```bash
+pnpm -r typecheck
+```
+
+```bash
+pnpm lint
+```
+
+```bash
+pnpm -r test
+```
+
+```bash
+docker compose config --quiet
+```
+
+- `pnpm lint` = `pnpm -r lint` (ESLint + typescript-eslint, règles type-aware, dans chaque package) puis `pnpm lint:root` (fichiers de config et `scripts/check-engine-lint.mjs`).
+- Règles notables : `any` explicite interdit (une exception se désactive ligne à ligne avec un commentaire qui la justifie), promesses non gérées interdites, et dans `packages/engine/**` : `Math.random`, `Date`, `performance`, `setTimeout`, `setInterval`, `fetch`, `process`, `window` et `document` interdits. `scripts/check-engine-lint.mjs` prouve que ces garde-fous sont actifs.
+- ESLint s'appuie sur TypeScript 6 (dépendance racine) car typescript-eslint ne prend pas encore en charge TypeScript 7 ; le typecheck des packages reste sur TypeScript 7.
+- Formatage : aucun formateur n'est imposé pour l'instant.
+
 ## Structure
 
 | Chemin | Rôle |

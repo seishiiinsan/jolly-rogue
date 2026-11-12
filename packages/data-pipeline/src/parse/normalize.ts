@@ -12,7 +12,7 @@ export function isEmptyValue(value: string | null | undefined): value is null | 
 }
 
 /** Supprime espaces (y compris insécables), points et virgules utilisés comme séparateurs de milliers. */
-const stripThousands = (s: string): string => s.replace(/[\s.,  ]/g, '');
+const stripThousands = (s: string): string => s.replace(/[\s.,\u00A0\u202F]/g, '');
 
 /** « 3.000.000.000 » → 3000000000. */
 export function parseBounty(value: string | null | undefined): number | null | undefined {
@@ -26,7 +26,7 @@ export function parseBounty(value: string | null | undefined): number | null | u
 /** « 19 ans », « 1 000 ans », « 65 » → nombre d'années. */
 export function parseAge(value: string | null | undefined): number | null | undefined {
   if (isEmptyValue(value)) return null;
-  const match = /^([\d\s.  ]+?)\s*(ans?|years?(?: old)?)?$/i.exec(value.trim());
+  const match = /^([\d\s.\u00A0\u202F]+?)\s*(ans?|years?(?: old)?)?$/i.exec(value.trim());
   if (!match?.[1]) return undefined;
   const digits = stripThousands(match[1]);
   return /^\d+$/.test(digits) ? Number(digits) : undefined;
@@ -36,7 +36,7 @@ export function parseAge(value: string | null | undefined): number | null | unde
 export function parseHeightCm(value: string | null | undefined): number | null | undefined {
   if (isEmptyValue(value)) return null;
   const trimmed = value.trim();
-  const cm = /^([\d\s  ]+)\s*cm$/i.exec(trimmed);
+  const cm = /^([\d\s\u00A0\u202F]+)\s*cm$/i.exec(trimmed);
   if (cm?.[1]) {
     const n = Number(stripThousands(cm[1]));
     return n > 0 ? n : undefined;

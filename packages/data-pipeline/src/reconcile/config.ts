@@ -189,5 +189,5 @@ export async function loadReconcileConfig(
     readYaml(path.join(dirs.overrides, 'aliases.yaml'), aliasesSchema),
     readYaml(path.join(dirs.overrides, 'corrections.yaml'), correctionsSchema),
   ]);
-  return { priority: priority as FieldPriority, aliases, corrections };
+  return { priority: priority, aliases, corrections };
 }

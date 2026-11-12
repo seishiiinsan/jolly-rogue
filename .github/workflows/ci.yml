@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    services:
+      # Même version majeure que docker-compose.yml.
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: jolly
+          POSTGRES_PASSWORD: ci-only
+          POSTGRES_DB: jolly_rogue
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U jolly -d jolly_rogue"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      # Les tests d'intégration sont ignorés sans cette variable : ici ils tournent vraiment.
+      TEST_DATABASE_URL: postgres://jolly:ci-only@127.0.0.1:5432/jolly_rogue
+    steps:
+      - uses: actions/checkout@v4
+      # Version de pnpm lue dans `packageManager` (package.json).
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r typecheck
+      - run: pnpm -r lint
+      - run: pnpm lint:root
+      - run: pnpm -r test
+      - name: docker compose config
+        run: |
+          cp .env.example .env
+          docker compose config --quiet

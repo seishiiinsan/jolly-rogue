@@ -10,9 +10,10 @@ function fakeClock() {
   const sleeps: number[] = [];
   return {
     now: () => now,
-    sleep: async (ms: number) => {
+    sleep: (ms: number): Promise<void> => {
       sleeps.push(ms);
       now += ms;
+      return Promise.resolve();
     },
     sleeps,
   };
@@ -22,12 +23,13 @@ type Reply = { status: number; body?: string; headers?: Record<string, string> }
 
 function fakeFetch(replies: Reply[]) {
   const calls: { url: string; userAgent: string | null }[] = [];
-  const fn = (async (input: string | URL | Request, init?: RequestInit) => {
-    calls.push({ url: String(input), userAgent: new Headers(init?.headers).get('user-agent') });
+  const fn = ((input: string | URL | Request, init?: RequestInit): Promise<Response> => {
+    const url = input instanceof Request ? input.url : input.toString();
+    calls.push({ url, userAgent: new Headers(init?.headers).get('user-agent') });
     const reply = replies.shift();
-    if (!reply) throw new Error('aucune réponse prévue');
-    if (reply instanceof Error) throw reply;
-    return new Response(reply.body ?? '', { status: reply.status, headers: reply.headers });
+    if (!reply) return Promise.reject(new Error('aucune réponse prévue'));
+    if (reply instanceof Error) return Promise.reject(reply);
+    return Promise.resolve(new Response(reply.body ?? '', { status: reply.status, headers: reply.headers }));
   }) as typeof fetch;
   return { fn, calls };
 }
