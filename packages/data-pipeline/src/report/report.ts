@@ -9,6 +9,7 @@ import {
   crews,
   devilFruits,
   externalIds,
+  fandom,
   haki,
   locations,
   provenance,
@@ -76,6 +77,7 @@ export async function buildReport(db: Executor): Promise<string> {
   const tables: PgTable[] = [
     responses,
     apiOnepiece,
+    fandom,
     rejections,
     characters,
     characterAliases,

@@ -55,6 +55,32 @@ docker compose run --rm pipeline report
   renseigne `id -u` / `id -g` dans `.env` si ton utilisateur a un autre uid.
 - Licence d'api-onepiece.com : aucune déclarée (`provenance.license` vide, signalé dans le rapport).
 
+### Source Fandom (One Piece Wiki)
+
+Collecte des infobox du [One Piece Wiki](https://onepiece.fandom.com) via l'API MediaWiki → `raw.responses` →
+`staging.fandom` (validé par Zod). **Aucune écriture dans `canon`** à ce stade (rapprochement : tâche 4).
+
+```bash
+docker compose run --rm pipeline ingest --source=fandom
+```
+
+- Listing : pages de l'espace principal qui transcluent `Template:Char Box`, `Devil Fruit Box` ou `Crew Box`
+  (`list=embeddedin`), sans les sous-pages d'onglets (`…/Gallery`).
+- Non canon : une page est écartée si elle est dans un arbre `Category:Non-Canon Characters`, `Non-Canon Devil Fruits`
+  ou `Non-Canon Pirate Crews` **et** que son infobox n'a aucun chapitre de début. L'arbre seul exclurait des persos
+  canon apparus dans un film (Zoro est dans « Non-Canon First Mates ») ; le chapitre seul exclurait le canon hors
+  manga (Vivre Card, SBS).
+- Wikitext lu par lots de 50 titres (`prop=revisions`), avec les catégories Haki. Pour les persos et équipages
+  majeurs, l'infobox est dans `Template:<Nom> Tabs Top`, récupéré dans une seconde passe.
+- Environ 370 requêtes au premier lancement (1 requête/s, ~7 min), aucune ensuite grâce au cache.
+- Une page sans infobox lisible ou avec une valeur au format inconnu est rejetée (`staging.rejections`,
+  listée dans le rapport) sans bloquer le lot.
+- Règles de lecture : âge et taille = **plus grande valeur** de la liste du wiki (l'ordre n'y est pas toujours chronologique) ; prime actuelle = non barrée
+  (toutes barrées : aucune prime actuelle) ; « At least X » → `isMinimum` ; grade Marine en étoiles seul → montant `null`.
+- **Licence** : textes du wiki sous `CC-BY-SA` (déclarée par l'API, détail sur <https://www.fandom.com/licensing>).
+  Chaque ligne de `staging.fandom` porte `license` et `source_url` (permalien de la révision lue). Aucune prose
+  (intro, histoire) ni image n'est stockée : uniquement les infobox.
+
 Tout remettre à zéro (supprime le volume de la base) :
 
 ```bash
@@ -81,6 +107,12 @@ Régénérer les fixtures de test depuis le cache HTTP (aucune requête réseau)
 
 ```bash
 pnpm --filter @jolly-rogue/data-pipeline build && node packages/data-pipeline/dist/scripts/record-fixtures.js
+```
+
+Fixtures Fandom (réponses réelles de l'API pour une quinzaine de pages ; passe par le cache, `--offline` possible) :
+
+```bash
+pnpm --filter @jolly-rogue/data-pipeline build && node packages/data-pipeline/dist/scripts/record-fixtures-fandom.js
 ```
 
 Modifier le schéma (`packages/db/src/schema/`) puis générer la migration (aucune base nécessaire) :

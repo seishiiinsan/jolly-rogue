@@ -52,3 +52,31 @@ export const rejections = staging.table(
     index('rejections_raw_response_id_idx').on(t.rawResponseId),
   ],
 );
+
+/**
+ * One Piece Wiki (Fandom) : une ligne par (kind, page). `data` contient l'infobox normalisée
+ * par le schéma Zod du kind (packages/data-pipeline/src/parse/fandom). Textes sous licence
+ * CC BY-SA : `license` et `source_url` (permalien de la révision) sont renseignés sur chaque ligne.
+ */
+export const fandom = staging.table(
+  'fandom',
+  {
+    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+    /** character | devil_fruit | crew */
+    kind: text('kind').notNull(),
+    pageId: integer('page_id').notNull(),
+    title: text('title').notNull(),
+    revId: integer('rev_id').notNull(),
+    sourceUrl: text('source_url').notNull(),
+    license: text('license').notNull(),
+    data: jsonb('data').notNull(),
+    rawResponseId: integer('raw_response_id')
+      .notNull()
+      .references(() => responses.id, { onDelete: 'restrict' }),
+    ...timestamps(),
+  },
+  (t) => [
+    unique('fandom_kind_page_id_key').on(t.kind, t.pageId),
+    index('fandom_raw_response_id_idx').on(t.rawResponseId),
+  ],
+);
