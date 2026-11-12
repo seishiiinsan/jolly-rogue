@@ -13,9 +13,11 @@ import {
 } from '@jolly-rogue/engine';
 import { cardBody, cardClass, characterCard, enemyCard } from './cards.js';
 import { mountCombat } from './combat-view.js';
-import { FAN_GAME_NOTICE, bonusText, canonSources, characterName, characterOf, esc, factionName, factionStyle, gameData } from './content.js';
+import { type ChestResult, COLLECTION_RULES, type Collection, craftCard, loadCollection, openChest, saveCollection } from './collection.js';
+import { type Mood, sceneHtml, shipSvg, waveStyles } from './scene.js';
+import { FAN_GAME_NOTICE, RARITY_LABEL, bonusText, canonSources, characterName, characterOf, esc, factionName, factionStyle, gameData } from './content.js';
 
-type Screen = 'home' | 'game' | 'combat' | 'end' | 'about';
+type Screen = 'home' | 'game' | 'combat' | 'end' | 'about' | 'collection';
 
 interface AppState {
   screen: Screen;
@@ -30,7 +32,27 @@ interface AppState {
   pendingOffer: number | null;
   combat: { wave: number; events: CombatEvent[] } | null;
   message: string | null;
+  /** Champ de seed déplié sur l'accueil. */
+  seedOpen: boolean;
+  /** Coffre de la partie qui vient de finir. */
+  chest: ChestResult | null;
 }
+
+/** Stockage local, s'il est disponible (il peut être bloqué en navigation privée). */
+const storage = (): Storage | undefined => {
+  try {
+    return window.localStorage;
+  } catch {
+    return undefined;
+  }
+};
+
+/** Aléatoire des coffres : distinct de la partie, jamais le RNG du moteur (cadrage §8). */
+const chestRand = (n: number): number => {
+  const buffer = new Uint32Array(1);
+  crypto.getRandomValues(buffer);
+  return Math.floor(((buffer[0] ?? 0) * n) / 0x100000000);
+};
 
 /** Seul aléatoire du front : la seed d'une nouvelle partie. */
 const randomSeed = (): number => {
@@ -40,9 +62,14 @@ const randomSeed = (): number => {
 };
 
 export function startApp(root: HTMLElement): void {
-  const state: AppState = { screen: 'home', back: 'home', run: null, choices: [], selected: null, pendingOffer: null, combat: null, message: null };
+  const state: AppState = { screen: 'home', back: 'home', run: null, choices: [], selected: null, pendingOffer: null, combat: null, message: null, seedOpen: false, chest: null };
+  let collection: Collection = loadCollection(storage());
   let unmountCombat: (() => void) | null = null;
 
+  const style = document.createElement('style');
+  style.textContent = waveStyles();
+  document.head.append(style);
+  root.insertAdjacentHTML('beforeend', sceneHtml());
   const view = document.createElement('main');
   const footer = document.createElement('footer');
   footer.className = 'notice';
@@ -58,7 +85,16 @@ export function startApp(root: HTMLElement): void {
     state.pendingOffer = null;
     state.combat = null;
     state.message = null;
+    state.chest = null;
     state.screen = 'game';
+  };
+
+  /** Fin de partie : ouvre le coffre (une seule fois) et sauvegarde la collection. */
+  const finishRun = (run: RunState): void => {
+    if (state.chest) return;
+    state.chest = openChest(collection, run.wavesCleared, run.score, gameData, chestRand);
+    collection = state.chest.collection;
+    saveCollection(storage(), collection);
   };
 
   /** Envoie un choix au moteur ; le front n'applique aucune règle lui-même. */
@@ -101,7 +137,23 @@ export function startApp(root: HTMLElement): void {
       case 'home':
         state.screen = 'home';
         state.message = null;
+        state.seedOpen = false;
         break;
+      case 'toggle-seed':
+        state.seedOpen = !state.seedOpen;
+        state.message = null;
+        break;
+      case 'collection':
+        state.screen = 'collection';
+        break;
+      case 'craft': {
+        const crafted = craftCard(collection, data['slug'] ?? '', gameData);
+        if (crafted) {
+          collection = crafted;
+          saveCollection(storage(), collection);
+        }
+        break;
+      }
       case 'about':
         if (state.screen !== 'about') state.back = state.screen;
         state.screen = 'about';
@@ -168,22 +220,80 @@ export function startApp(root: HTMLElement): void {
 
   const home = (): string => `
     <section class="screen home">
-      <h1 class="title">Jolly Rogue</h1>
-      <p class="tagline">Recrute un équipage, place-le sur deux lignes et survis au plus de vagues possible : les combats se jouent tout seuls.</p>
-      <button type="button" class="primary big" data-action="new-run" data-testid="new-run">Nouvelle traversée</button>
-      <form class="seed-form">
-        <label for="seed">Rejouer une seed</label>
-        <input id="seed" name="seed" inputmode="numeric" autocomplete="off" placeholder="ex. 2026" data-testid="seed-input" />
-        <button type="submit" data-testid="play-seed">Jouer cette seed</button>
-      </form>
-      ${state.message ? `<p class="message" role="alert">${esc(state.message)}</p>` : ''}
+      <div class="home-ship">${shipSvg()}</div>
+      <div class="home-card">
+        <p class="home-kicker">Auto-battler roguelike</p>
+        <h1 class="title">Jolly Rogue</h1>
+        <p class="tagline">Recrute un équipage, place-le sur deux lignes et survis au plus de vagues possible : les combats se jouent tout seuls.</p>
+        <nav class="menu" aria-label="Menu principal">
+          <button type="button" class="primary big" data-action="new-run" data-testid="new-run">Nouvelle traversée</button>
+          <button type="button" class="big" data-action="toggle-seed" data-testid="toggle-seed" aria-expanded="${state.seedOpen}">Rejouer une seed</button>
+          ${
+            state.seedOpen
+              ? `<form class="seed-form">
+                  <label for="seed" class="sr-only">Seed</label>
+                  <input id="seed" name="seed" inputmode="numeric" autocomplete="off" placeholder="ex. 2026" data-testid="seed-input" />
+                  <button type="submit" data-testid="play-seed">Jouer</button>
+                </form>`
+              : ''
+          }
+          <button type="button" class="big" data-action="collection" data-testid="open-collection">Collection <small>${collection.owned.length} / ${gameData.characters.length}</small></button>
+          <button type="button" class="big" data-action="about">À propos</button>
+        </nav>
+        ${state.message ? `<p class="message" role="alert">${esc(state.message)}</p>` : ''}
+        <dl class="stats home-stats">
+          <div><dt>Meilleur score</dt><dd>${collection.bestScore}</dd></div>
+          <div><dt>Traversées</dt><dd>${collection.runs}</dd></div>
+          <div><dt>Fragments</dt><dd>${collection.fragments}</dd></div>
+        </dl>
+      </div>
       <ul class="rules">
-        <li>Après chaque victoire, recrute 1 pirate parmi 3 (ou aucun). Un pirate déjà à bord <b>fusionne</b> et monte de niveau.</li>
-        <li>5 pirates au maximum, sur une <b>ligne avant</b> et une <b>ligne arrière</b> : l'avant encaisse, l'arrière est protégé… sauf des tireurs.</li>
-        <li>Réunis les membres d'un même équipage pour activer sa <b>synergie</b>.</li>
-        <li>Un boss toutes les 10 vagues. Une défaite, et la traversée s'arrête.</li>
+        <li><b>Recrute</b> 1 pirate parmi 3 après chaque victoire. Un pirate déjà à bord <b>fusionne</b>.</li>
+        <li><b>Place</b> 5 pirates sur deux lignes : l'avant encaisse, l'arrière est protégé… sauf des tireurs.</li>
+        <li><b>Réunis</b> un même équipage pour activer sa synergie. Boss toutes les 10 vagues.</li>
       </ul>
     </section>`;
+
+  const collectionScreen = (): string => {
+    const byRarity = (['legendaire', 'rare', 'commun'] as const).map((rarity) => ({
+      rarity,
+      characters: gameData.characters.filter((c) => c.rarity === rarity),
+    }));
+    return `
+    <section class="screen collection">
+      <header class="bar-top">
+        <h1>Collection</h1>
+        <dl class="stats">
+          <div><dt>Cartes</dt><dd data-testid="collection-count">${collection.owned.length} / ${gameData.characters.length}</dd></div>
+          <div><dt>Fragments</dt><dd data-testid="collection-fragments">${collection.fragments}</dd></div>
+          <div><dt>Coffres ouverts</dt><dd>${collection.chestsOpened}</dd></div>
+        </dl>
+        <button type="button" data-action="home">Retour</button>
+      </header>
+      <p class="panel note">Chaque traversée gagnée d'au moins une vague donne un <b>coffre</b> : plus tu vas loin, plus il est gros et riche. Un doublon devient des <b>fragments</b>, échangeables contre la carte de ton choix. Une légendaire est garantie au ${COLLECTION_RULES.pityChests}ᵉ coffre sans en avoir eu (encore ${Math.max(1, COLLECTION_RULES.pityChests - collection.chestsSinceLegendary)}). La collection ne donne <b>aucun avantage en partie</b>.</p>
+      ${byRarity
+        .map(
+          ({ rarity, characters }) => `
+        <section class="panel">
+          <h2>${RARITY_LABEL[rarity]} <small>${characters.filter((c) => collection.owned.includes(c.slug)).length} / ${characters.length} · carte au choix : ${COLLECTION_RULES.craft[rarity]} fragments</small></h2>
+          <div class="cards">
+            ${characters
+              .map((c) => {
+                const card = characterCard(c.slug, 1, c);
+                const owned = collection.owned.includes(c.slug);
+                const cost = COLLECTION_RULES.craft[c.rarity];
+                return `<div class="collect">
+                  <div class="${cardClass(card)}${owned ? '' : ' locked'}" data-testid="collect-${c.slug}" data-owned="${owned}">${cardBody(card, { locked: !owned })}</div>
+                  ${owned ? '' : `<button type="button" data-action="craft" data-slug="${c.slug}" ${collection.fragments >= cost ? '' : 'disabled'}>Obtenir (${cost})</button>`}
+                </div>`;
+              })
+              .join('')}
+          </div>
+        </section>`,
+        )
+        .join('')}
+    </section>`;
+  };
 
   const about = (): string => `
     <section class="screen about">
@@ -324,6 +434,26 @@ export function startApp(root: HTMLElement): void {
       </div>
     </section>`;
 
+  const chestPanel = (): string => {
+    const chest = state.chest;
+    if (!chest || chest.cards.length === 0) {
+      return '<section class="panel chest"><h2>Pas de coffre</h2><p>Gagne au moins une vague pour ouvrir un coffre.</p></section>';
+    }
+    return `
+      <section class="panel chest" data-testid="chest">
+        <h2>Coffre <small>${chest.cards.length} carte${chest.cards.length > 1 ? 's' : ''}${chest.pity ? ' · légendaire garantie !' : ''}</small></h2>
+        <div class="cards">
+          ${chest.cards
+            .map((c, i) => {
+              const card = characterCard(c.slug, 1, characterOf(c.slug));
+              return `<div class="${cardClass(card)} small reveal" style="--i:${i}">${cardBody(card, { compact: true, badge: c.isNew ? 'Nouvelle !' : `Doublon : +${c.fragments} fragment${c.fragments > 1 ? 's' : ''}` })}</div>`;
+            })
+            .join('')}
+        </div>
+        <p><button type="button" data-action="collection">Voir la collection (${collection.owned.length} / ${gameData.characters.length})</button></p>
+      </section>`;
+  };
+
   const end = (run: RunState): string => `
     <section class="screen end">
       <h1>Fin de la traversée</h1>
@@ -333,6 +463,8 @@ export function startApp(root: HTMLElement): void {
         <div><dt>Score</dt><dd data-testid="end-score">${run.score}</dd></div>
         <div><dt>Seed</dt><dd data-testid="end-seed">${run.seed}</dd></div>
       </dl>
+      ${chestPanel()}
+      <h2 class="end-sub">Ton équipage</h2>
       <div class="cards final-team">
         ${run.team
           .map((member, index) => {
@@ -345,7 +477,7 @@ export function startApp(root: HTMLElement): void {
       <p>
         <button type="button" data-action="copy" data-testid="copy-run">Copier la partie</button>
         <button type="button" class="primary" data-action="new-run">Nouvelle traversée</button>
-        <button type="button" data-action="home">Accueil</button>
+        <button type="button" data-action="home" data-testid="go-home">Accueil</button>
       </p>
       <label for="export">Partie (seed + choix) à joindre à tes retours :</label>
       <textarea id="export" readonly rows="4" data-testid="export-json">${esc(exportJson())}</textarea>
@@ -365,9 +497,18 @@ export function startApp(root: HTMLElement): void {
         },
       });
     } else if (state.screen === 'game' && run) view.innerHTML = game(run);
-    else if (state.screen === 'end' && run) view.innerHTML = end(run);
+    else if (state.screen === 'end' && run) {
+      finishRun(run);
+      view.innerHTML = end(run);
+    } else if (state.screen === 'collection') view.innerHTML = collectionScreen();
     else if (state.screen === 'about') view.innerHTML = about();
     else view.innerHTML = home();
+    // Ambiance du décor : tempête sur les vagues de boss, crépuscule puis nuit en s'enfonçant.
+    const wave = state.screen === 'combat' ? (state.combat?.wave ?? 1) : (run?.wave ?? 1);
+    const inRun = (state.screen === 'game' || state.screen === 'combat') && run !== null;
+    const mood: Mood = !inRun ? (state.screen === 'end' ? 'dusk' : 'day') : isBossWave(wave, gameData) ? 'storm' : wave > 20 ? 'night' : wave > 10 ? 'dusk' : 'day';
+    document.body.dataset['mood'] = mood;
+    document.body.dataset['screen'] = state.screen;
     document.title = state.screen === 'about' ? 'À propos — Jolly Rogue' : 'Jolly Rogue';
   }
 

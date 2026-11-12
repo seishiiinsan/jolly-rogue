@@ -18,6 +18,7 @@ const SEED = 2026;
 async function playScriptedRun(page: Page): Promise<void> {
   await page.goto('/');
   await expect(page.getByText(NOTICE)).toBeVisible();
+  await page.getByTestId('toggle-seed').click();
   await page.getByTestId('seed-input').fill(String(SEED));
   await page.getByTestId('play-seed').click();
 
@@ -65,10 +66,22 @@ test('une partie complète sur une seed fixe : score identique au rejeu du moteu
   await expect(page.getByTestId('end-score')).toHaveText(String(replayed.state.score));
   await expect(page.getByTestId('end-waves')).toHaveText(String(replayed.state.wavesCleared));
   expect(replayed.state.wavesCleared).toBeGreaterThanOrEqual(5);
+
+  // Coffre de fin de partie : ses cartes rejoignent la collection, qui survit au rechargement.
+  const chestCards = await page.getByTestId('chest').locator('.card').count();
+  expect(chestCards).toBeGreaterThanOrEqual(1);
+  const fresh = await page.getByTestId('chest').locator('.card-badge', { hasText: 'Nouvelle' }).count();
+  expect(fresh).toBeGreaterThanOrEqual(1);
+  await page.reload();
+  await page.getByTestId('open-collection').click();
+  await expect(page.locator('[data-owned="true"]')).toHaveCount(fresh);
+  await expect(page.getByTestId('collection-count')).toHaveText(`${fresh} / ${data.characters.length}`);
+  await expect(page.locator('[data-owned="false"]').first()).toContainText('???');
 });
 
 test('le combat se rejoue à l\'écran, avec vitesse ×2 et journal textuel', async ({ page }) => {
   await page.goto('/');
+  await page.getByTestId('toggle-seed').click();
   await page.getByTestId('seed-input').fill('2');
   await page.getByTestId('play-seed').click();
   await page.getByTestId('start-wave').click();
@@ -84,10 +97,11 @@ test('le combat se rejoue à l\'écran, avec vitesse ×2 et journal textuel', as
 
 test('accueil : seed invalide refusée, page À propos avec sources et licences', async ({ page }) => {
   await page.goto('/');
+  await page.getByTestId('toggle-seed').click();
   await page.getByTestId('seed-input').fill('pas-une-seed');
   await page.getByTestId('play-seed').click();
   await expect(page.getByRole('alert')).toContainText('Seed invalide');
-  await page.getByRole('button', { name: 'À propos' }).click();
+  await page.getByRole('button', { name: 'À propos' }).first().click();
   await expect(page.getByRole('heading', { name: 'À propos' })).toBeVisible();
   await expect(page.getByText('CC BY-SA').first()).toBeVisible();
   await expect(page.getByText(NOTICE).first()).toBeVisible();

@@ -47,11 +47,23 @@ pnpm --filter @jolly-rogue/web e2e
 
 | Écran | Contenu |
 | --- | --- |
-| Accueil | Nouvelle traversée (seed aléatoire) ou seed saisie pour rejouer |
+| Accueil | Menu sur décor marin : nouvelle traversée (seed aléatoire), rejouer une seed, collection, à propos ; meilleur score |
 | Partie | Prochaine vague, équipage sur deux lignes, synergies ; recrutement (3 cartes + « Aucun », remplacement si l'équipe est pleine) puis placement (clic sur un pirate, puis « changer de ligne » ou clic sur un autre pour échanger) |
 | Combat | Rejeu du journal : cartes qui avancent, dégâts, boucliers, morts ; ×1 / ×2 / « Passer » ; journal textuel |
-| Fin | Vagues gagnées, score, seed, « Copier la partie » (seed + choix en JSON, à joindre aux retours de playtest) |
+| Collection | Cartes découvertes ou non par rareté, fragments, carte au choix contre fragments |
+| Fin | Coffre de fin de partie, vagues gagnées, score, seed, « Copier la partie » (seed + choix en JSON, à joindre aux retours de playtest) |
 | À propos | Mention fan game, sources et licences (CC BY-SA pour le One Piece Wiki) |
+
+## Décor et portraits
+
+- Décor (`src/scene.ts`, `src/styles.css`) : ciel, soleil, nuages, îles, mer animée, navire et ponts en bois, entièrement en SVG/CSS maison. L'ambiance change avec la partie : jour, crépuscule après la vague 10, nuit après la vague 20, tempête sur les vagues de boss. `prefers-reduced-motion` coupe les animations.
+- Portraits (`src/portrait.ts`) : silhouettes de pirate **génériques et originales**, une par archétype, teintées par la faction, avec le monogramme du nom. Ce ne sont pas des représentations des personnages de l'œuvre : aucun visuel officiel ni approchant (cadrage §7).
+
+## Collection (provisoire)
+
+`src/collection.ts` : collection **locale au navigateur** (`localStorage`), sans aucun effet en partie. Un coffre par traversée d'au moins une vague gagnée, doublons convertis en fragments, carte au choix contre fragments, légendaire garantie au 10ᵉ coffre sans en avoir eu. Les coffres utilisent un aléatoire distinct de celui de la partie.
+
+C'est une avance sur J3 : les valeurs (`COLLECTION_RULES`) sont des propositions à valider dans `docs/regles-meta.md`, et les coffres devront être tirés côté serveur (cadrage §8) dès qu'il y aura des comptes.
 
 ## Dépendances
 

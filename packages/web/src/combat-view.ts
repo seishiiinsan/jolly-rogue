@@ -1,5 +1,6 @@
 import type { CombatEvent, CombatUnitInfo } from '@jolly-rogue/engine';
-import { ARCHETYPE_LABEL, archetypeIcon, characterName, characterOf, enemyName, esc, factionStyle, skillOf } from './content.js';
+import { ARCHETYPE_LABEL, archetypeIcon, characterName, characterOf, enemyName, enemyOf, esc, factionStyle, skillOf } from './content.js';
+import { portrait } from './portrait.js';
 import { type Beat, type Fx, type UnitState, applyBeat, buildTimeline, describeBeat, finalStates, initialStates } from './timeline.js';
 
 /** Durée d'un temps d'animation à vitesse ×1, en millisecondes. */
@@ -11,7 +12,9 @@ function unitHtml(u: CombatUnitInfo): string {
   const style = factionStyle(u.kind === 'character' ? characterOf(u.ref).faction : null);
   return `
     <div class="unit" data-id="${u.id}" style="--faction:${style.color}">
-      <div class="unit-head"><span aria-hidden="true">${style.mark}</span> ${archetypeIcon(u.archetype)}<span class="sr-only">${ARCHETYPE_LABEL[u.archetype]}</span></div>
+      <div class="unit-art">${portrait({ key: u.ref, name: unitName(u), archetype: u.archetype, color: style.color, boss: u.kind === 'enemy' && enemyOf(u.ref).boss === true })}
+        <span class="unit-head"><span aria-hidden="true">${style.mark}</span> ${archetypeIcon(u.archetype)}<span class="sr-only">${ARCHETYPE_LABEL[u.archetype]}</span></span>
+      </div>
       <div class="unit-name">${esc(unitName(u))}${u.level > 1 ? ` <span class="card-level">${'★'.repeat(u.level)}</span>` : ''}</div>
       <div class="bar" role="img" aria-label="Points de vie"><div class="bar-hp"></div><div class="bar-shield"></div></div>
       <div class="unit-hp"></div>
@@ -52,9 +55,9 @@ export function mountCombat(root: HTMLElement, options: CombatViewOptions): () =
       </header>
       <div class="combat-layout">
         <div class="battlefield">
-          <div class="side side-enemy">${row('enemy', 'back')}${row('enemy', 'front')}</div>
+          <div class="side side-enemy deck"><span class="deck-label">Pont ennemi</span>${row('enemy', 'back')}${row('enemy', 'front')}</div>
           <div class="banner" aria-live="polite"></div>
-          <div class="side side-player">${row('player', 'front')}${row('player', 'back')}</div>
+          <div class="side side-player deck"><span class="deck-label">Ton pont</span>${row('player', 'front')}${row('player', 'back')}</div>
         </div>
         <aside class="log" aria-label="Journal du combat"><ol></ol></aside>
       </div>
