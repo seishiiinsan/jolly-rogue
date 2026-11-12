@@ -30,6 +30,21 @@ export const FIXTURE_TITLES = [
   'Gomu Gomu no Mi', // fruit à deux identités (----)
   'Mera Mera no Mi', // plusieurs porteurs, pas de rname
   'Straw Hat Pirates', // Crew Box dans un Tabs Top, prime totale avec Refn
+  // Réconciliation (tâche 4) : équipage du Chapeau de paille complet et ses fruits.
+  'Usopp',
+  'Sanji',
+  'Nico Robin',
+  'Franky',
+  'Jinbe',
+  'Hana Hana no Mi',
+  'Hito Hito no Mi',
+  'Yomi Yomi no Mi',
+  'Zeus', // affiliation Straw Hat Pirates sans qualificatif (corrigée dans les overrides)
+  'Pirate Bear', // idem, absent d'api-onepiece
+  'Kurozumi Tama', // homonymie « Tama » : alias
+  'Tama (Sphinx)',
+  'Supa Supa no Mi', // porteur actuel + copie artificielle (S-Hawk)
+  'S-Hawk', // « (Artifical) » : copie artificielle
   'Jolly Rogue Fixture Missing Page', // page inexistante : rejet « page introuvable »
 ].sort();
 

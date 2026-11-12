@@ -62,21 +62,21 @@ describe.skipIf(!adminUrl)('ingest fandom --offline (intégration)', () => {
     const titles = fixtureTitles();
     const first = await ingestFandom(conn.db, http(), { titles });
     expect(first).toMatchObject({ requests: 2, fromCache: 2, rawInserted: 2, pages: titles.length - 1, rejected: 1 });
-    expect(first.records).toBe(13);
+    expect(first.records).toBe(27);
 
     const kinds = await conn.client<{ kind: string; n: number }[]>`
       select kind, count(*)::int as n from staging.fandom group by kind order by kind`;
     expect(kinds).toEqual([
-      { kind: 'character', n: 10 },
+      { kind: 'character', n: 20 },
       { kind: 'crew', n: 1 },
-      { kind: 'devil_fruit', n: 2 },
+      { kind: 'devil_fruit', n: 6 },
     ]);
     const [canonRows] = await conn.client<{ n: number }[]>`select count(*)::int as n from canon.characters`;
     expect(canonRows?.n).toBe(0);
 
     const before = await fingerprint();
     const second = await ingestFandom(conn.db, http(), { titles });
-    expect(second).toMatchObject({ rawInserted: 0, records: 13, rejected: 1 });
+    expect(second).toMatchObject({ rawInserted: 0, records: 27, rejected: 1 });
     expect(await fingerprint()).toEqual(before);
   });
 
@@ -92,7 +92,7 @@ describe.skipIf(!adminUrl)('ingest fandom --offline (intégration)', () => {
   it('rapport : page rejetée listée, staging.fandom compté, licence de la source', async () => {
     const report = await buildReport(conn.db);
     expect(report).toContain('| fandom | page | en | Jolly Rogue Fixture Missing Page | page: page introuvable : Jolly Rogue Fixture Missing Page |');
-    expect(report).toContain('| staging.fandom | 13 |');
+    expect(report).toContain('| staging.fandom | 27 |');
     expect(report).toContain('| fandom | https://onepiece.fandom.com | CC-BY-SA |');
   });
 });
