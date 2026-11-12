@@ -47,6 +47,11 @@ jobs:
       - run: pnpm -r lint
       - run: pnpm lint:root
       - run: pnpm -r test
+      # Compile tout, revalide les données de jeu contre le canon et régénère game.json :
+      # un slug absent du canon ou un export pas à jour fait échouer la CI.
+      - run: pnpm -r build
+      - name: data/exports/game.json est à jour
+        run: git diff --exit-code -- data/exports/game.json
       - name: docker compose config
         run: |
           cp .env.example .env

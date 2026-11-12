@@ -1,0 +1,18 @@
+# Synergies de faction : le palier le plus haut atteint s'applique aux membres de la faction.
+# Bonus : hp_pct, atk_pct (en %), spd_flat (points de VIT).
+- faction: mugiwara-no-ichimi
+  tiers:
+    - { count: 2, bonuses: [{ stat: hp_pct, value: 15 }, { stat: atk_pct, value: 15 }] }
+    - { count: 4, bonuses: [{ stat: hp_pct, value: 40 }, { stat: atk_pct, value: 40 }] }
+- faction: kaigun
+  tiers:
+    - { count: 2, bonuses: [{ stat: hp_pct, value: 30 }] }
+    - { count: 4, bonuses: [{ stat: hp_pct, value: 60 }, { stat: atk_pct, value: 20 }] }
+- faction: shirohige-kaizokudan
+  tiers:
+    - { count: 2, bonuses: [{ stat: atk_pct, value: 25 }] }
+    - { count: 3, bonuses: [{ stat: atk_pct, value: 50 }, { stat: hp_pct, value: 15 }] }
+- faction: donkihote-kaizokudan
+  tiers:
+    - { count: 2, bonuses: [{ stat: spd_flat, value: 3 }, { stat: atk_pct, value: 15 }] }
+    - { count: 3, bonuses: [{ stat: spd_flat, value: 6 }, { stat: atk_pct, value: 40 }] }

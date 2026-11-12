@@ -1,0 +1,14 @@
+# Ennemis. Les sbires sont génériques (aucun fait de lore) ; un boss porte un `canonSlug`
+# de data/exports/canon.json, d'où vient son nom affiché.
+# `row` = ligne préférée ; `minWave` = première vague où le sbire peut apparaître.
+- { id: matelot, name: Matelot, archetype: poing, row: front, hp: 60, atk: 12, spd: 9, minWave: 1 }
+- { id: sabreur, name: Sabreur, archetype: sabre, row: front, hp: 50, atk: 16, spd: 12, minWave: 1 }
+- { id: tireur, name: Tireur, archetype: tir, row: back, hp: 40, atk: 18, spd: 13, minWave: 2 }
+- { id: brute, name: Brute, archetype: poing, row: front, hp: 110, atk: 10, spd: 6, minWave: 4, skill: cuirasse }
+- { id: medecin, name: Médecin de bord, archetype: soutien, row: back, hp: 55, atk: 10, spd: 11, minWave: 6, skill: bandage }
+- { id: artificier, name: Artificier, archetype: tir, row: back, hp: 45, atk: 14, spd: 10, minWave: 8, skill: baril-de-poudre }
+
+- { id: boss-lucci, canonSlug: rob-lucci, boss: true, archetype: poing, row: front, hp: 400, atk: 30, spd: 20, skill: griffe-du-leopard }
+- { id: boss-crocodile, canonSlug: crocodile, boss: true, archetype: poing, row: front, hp: 320, atk: 20, spd: 14, skill: tempete-de-sable }
+- { id: boss-teach, canonSlug: marchall-d-teach-barbe-noire, boss: true, archetype: poing, row: front, hp: 340, atk: 20, spd: 12, skill: tenebres }
+- { id: boss-kaido, canonSlug: kaido, boss: true, archetype: poing, row: front, hp: 380, atk: 22, spd: 16, skill: souffle-ardent }

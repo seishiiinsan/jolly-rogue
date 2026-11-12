@@ -1,0 +1,20 @@
+# Persos jouables de J1. `slug` et `faction` sont des slugs de data/exports/canon.json :
+# le nom, l'équipage et le fruit ne sont jamais recopiés ici.
+- { slug: monkey-d-luffy, faction: mugiwara-no-ichimi, rarity: legendaire, archetype: poing, hp: 190, atk: 36, spd: 19, skill: gatling }
+- { slug: roronoa-zoro, faction: mugiwara-no-ichimi, rarity: rare, archetype: sabre, hp: 120, atk: 32, spd: 15, skill: trois-sabres }
+- { slug: sanji, faction: mugiwara-no-ichimi, rarity: rare, archetype: poing, hp: 125, atk: 28, spd: 22, skill: jambe-ardente }
+- { slug: usopp, faction: mugiwara-no-ichimi, rarity: commun, archetype: tir, hp: 70, atk: 28, spd: 12, skill: etoile-explosive }
+- { slug: tony-tony-chopper, faction: mugiwara-no-ichimi, rarity: commun, archetype: soutien, hp: 100, atk: 20, spd: 14, skill: premiers-soins }
+
+- { slug: sakazuki-akainu, faction: kaigun, rarity: legendaire, archetype: poing, hp: 170, atk: 40, spd: 18, skill: pluie-de-magma }
+- { slug: borsalino-kizaru, faction: kaigun, rarity: rare, archetype: tir, hp: 100, atk: 30, spd: 26, skill: pluie-de-lumiere }
+- { slug: hina, faction: kaigun, rarity: commun, archetype: poing, hp: 110, atk: 18, spd: 15, skill: cage-noire }
+- { slug: momonga, faction: kaigun, rarity: commun, archetype: sabre, hp: 95, atk: 24, spd: 11, skill: lame-affutee }
+
+- { slug: edward-newgate-barbe-blanche, faction: shirohige-kaizokudan, rarity: legendaire, archetype: poing, hp: 230, atk: 34, spd: 10, skill: seisme }
+- { slug: portgas-d-ace, faction: shirohige-kaizokudan, rarity: rare, archetype: poing, hp: 130, atk: 30, spd: 16, skill: poing-ardent }
+- { slug: diamond-joz, faction: shirohige-kaizokudan, rarity: commun, archetype: poing, hp: 160, atk: 12, spd: 8, skill: corps-de-diamant }
+
+- { slug: don-quijote-doflamingo, faction: donkihote-kaizokudan, rarity: rare, archetype: tir, hp: 110, atk: 30, spd: 22, skill: fils-parasites }
+- { slug: diamante, faction: donkihote-kaizokudan, rarity: commun, archetype: sabre, hp: 85, atk: 26, spd: 12, skill: lame-ondulante }
+- { slug: pica, faction: donkihote-kaizokudan, rarity: commun, archetype: poing, hp: 150, atk: 14, spd: 7, skill: rempart-de-pierre }

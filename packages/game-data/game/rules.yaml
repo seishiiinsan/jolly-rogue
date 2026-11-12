@@ -1,0 +1,35 @@
+# Constantes de règles de J1 (docs/regles-j1.md). Tous les nombres sont des entiers.
+team:
+  max: 5            # taille maximale de l'équipe
+  rowMax: 3         # places par ligne (avant / arrière)
+  startingCount: 2  # persos de départ, tirés parmi les communs
+  startingRarity: commun
+fusion:
+  maxLevel: 3
+  # Multiplicateur (en %) des PV et de l'ATK par niveau : niveau 1, 2, 3.
+  levelMultiplierPct: [100, 150, 200]
+combat:
+  roundLimit: 30        # au-delà : défaite
+  meleeBackRowPct: 50   # ATK d'un perso de mêlée placé à l'arrière
+offer:
+  size: 3
+  # Probabilités (en %) selon la vague w qui vient d'être gagnée :
+  #   légendaire = min(cap, base + perStep × floor(w / step)), idem rare ; commun = le reste.
+  legendaire: { base: 0, perStep: 2, step: 2, cap: 25 }
+  rare: { base: 15, perStep: 3, step: 1, cap: 45 }
+score:
+  perWave: 1000
+  bonusCap: 999
+# Coût d'un perso = PV + atk × ATK + spd × VIT, à ± tolerance du budget de sa rareté.
+budget:
+  atk: 5
+  spd: 3
+  tolerance: 10
+  commun: 250
+  rare: 330
+  legendaire: 430
+archetypes:
+  sabre: { range: melee, targeting: lowest_hp }
+  poing: { range: melee, targeting: first }
+  tir: { range: ranged, targeting: back_first }
+  soutien: { range: ranged, targeting: first }

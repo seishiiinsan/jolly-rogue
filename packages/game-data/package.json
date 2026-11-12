@@ -1,0 +1,48 @@
+{
+  "name": "@jolly-rogue/game-data",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./validate": {
+      "source": "./src/validate.ts",
+      "types": "./dist/validate.d.ts",
+      "default": "./dist/validate.js"
+    },
+    "./load": {
+      "source": "./src/load.ts",
+      "types": "./dist/load.d.ts",
+      "default": "./dist/load.js"
+    }
+  },
+  "files": [
+    "dist",
+    "game"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node dist/cli.js build",
+    "validate": "tsc -p tsconfig.build.json && node dist/cli.js validate",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "compile": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@jolly-rogue/db": "workspace:*",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "bin": {
+    "game-data": "./dist/cli.js"
+  }
+}

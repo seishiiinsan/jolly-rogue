@@ -1,0 +1,12 @@
+# Génération des vagues (docs/regles-j1.md §10). w = numéro de la vague (1, 2, 3…).
+# Nombre de sbires d'une vague normale : min(max, base + floor((w - 1) / step)).
+count: { base: 2, step: 2, max: 6 }
+# Multiplicateur (en %) des PV et de l'ATK des ennemis :
+#   base + linear × (w - 1) + quadratic × (w - 1)² / 100   (division entière)
+scaling: { base: 100, linear: 8, quadratic: 40 }
+# Boss toutes les `every` vagues, dans l'ordre de la liste, qui boucle.
+boss:
+  every: 10
+  order: [boss-lucci, boss-crocodile, boss-teach, boss-kaido]
+  # Sbires d'escorte : min(max, base + numéro du palier).
+  escorts: { base: 1, max: 5 }

@@ -1,0 +1,105 @@
+# Catalogue fermé : un déclencheur + une liste d'effets paramétrés (docs/regles-j1.md §3).
+# Déclencheurs : combat_start, every_n_actions (n), on_kill, on_death.
+# Effets : damage (pct de l'ATK), heal (pct de l'ATK), shield (pct des PV max du lanceur),
+#          stun (turns), buff_atk (pct). Cibles : self, target, target_row, all_enemies,
+#          random_enemy, lowest_hp_ally, all_allies.
+
+# --- Persos ---
+- id: gatling
+  name: Rafale de poings
+  trigger: { type: every_n_actions, n: 2 }
+  effects: [{ type: damage, target: target, pct: 180 }]
+- id: trois-sabres
+  name: Style à trois sabres
+  trigger: { type: every_n_actions, n: 3 }
+  effects: [{ type: damage, target: target, pct: 200 }]
+- id: jambe-ardente
+  name: Jambe ardente
+  trigger: { type: every_n_actions, n: 3 }
+  effects:
+    - { type: damage, target: target, pct: 120 }
+    - { type: buff_atk, target: self, pct: 15 }
+- id: etoile-explosive
+  name: Étoile explosive
+  trigger: { type: every_n_actions, n: 3 }
+  effects: [{ type: damage, target: random_enemy, pct: 160 }]
+- id: premiers-soins
+  name: Premiers soins
+  trigger: { type: every_n_actions, n: 2 }
+  effects: [{ type: heal, target: lowest_hp_ally, pct: 150 }]
+- id: pluie-de-magma
+  name: Pluie de magma
+  trigger: { type: every_n_actions, n: 3 }
+  effects: [{ type: damage, target: all_enemies, pct: 90 }]
+- id: pluie-de-lumiere
+  name: Pluie de lumière
+  trigger: { type: every_n_actions, n: 3 }
+  effects: [{ type: damage, target: all_enemies, pct: 60 }]
+- id: cage-noire
+  name: Cage noire
+  trigger: { type: every_n_actions, n: 4 }
+  effects:
+    - { type: damage, target: target, pct: 100 }
+    - { type: stun, target: target, turns: 1 }
+- id: lame-affutee
+  name: Lame affûtée
+  trigger: { type: on_kill }
+  effects: [{ type: buff_atk, target: self, pct: 20 }]
+- id: seisme
+  name: Séisme
+  trigger: { type: every_n_actions, n: 3 }
+  effects:
+    - { type: damage, target: target_row, pct: 130 }
+    - { type: stun, target: target, turns: 1 }
+- id: poing-ardent
+  name: Poing ardent
+  trigger: { type: every_n_actions, n: 3 }
+  effects: [{ type: damage, target: target_row, pct: 110 }]
+- id: corps-de-diamant
+  name: Corps de diamant
+  trigger: { type: combat_start }
+  effects: [{ type: shield, target: self, pct: 30 }]
+- id: fils-parasites
+  name: Fils parasites
+  trigger: { type: every_n_actions, n: 4 }
+  effects:
+    - { type: damage, target: target, pct: 120 }
+    - { type: stun, target: target, turns: 1 }
+- id: lame-ondulante
+  name: Lame ondulante
+  trigger: { type: every_n_actions, n: 3 }
+  effects: [{ type: damage, target: target_row, pct: 80 }]
+- id: rempart-de-pierre
+  name: Rempart de pierre
+  trigger: { type: combat_start }
+  effects: [{ type: shield, target: all_allies, pct: 10 }]
+
+# --- Ennemis ---
+- id: cuirasse
+  name: Cuirasse
+  trigger: { type: combat_start }
+  effects: [{ type: shield, target: self, pct: 20 }]
+- id: bandage
+  name: Bandage
+  trigger: { type: every_n_actions, n: 2 }
+  effects: [{ type: heal, target: lowest_hp_ally, pct: 150 }]
+- id: baril-de-poudre
+  name: Baril de poudre
+  trigger: { type: on_death }
+  effects: [{ type: damage, target: all_enemies, pct: 60 }]
+- id: griffe-du-leopard
+  name: Griffe du léopard
+  trigger: { type: every_n_actions, n: 3 }
+  effects: [{ type: damage, target: target, pct: 200 }]
+- id: tempete-de-sable
+  name: Tempête de sable
+  trigger: { type: every_n_actions, n: 3 }
+  effects: [{ type: damage, target: target_row, pct: 90 }]
+- id: tenebres
+  name: Ténèbres
+  trigger: { type: every_n_actions, n: 3 }
+  effects: [{ type: damage, target: all_enemies, pct: 70 }]
+- id: souffle-ardent
+  name: Souffle ardent
+  trigger: { type: every_n_actions, n: 2 }
+  effects: [{ type: damage, target: all_enemies, pct: 60 }]
