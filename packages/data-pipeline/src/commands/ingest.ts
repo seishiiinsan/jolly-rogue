@@ -1,7 +1,7 @@
 import { createDb } from '@jolly-rogue/db';
 import { cacheDir, userAgent } from '../config.js';
 import { HttpClient } from '../http/client.js';
-import { INGEST_SOURCES, type IngestSource, ingestApiOnepiece } from '../ingest.js';
+import { INGEST_SOURCES, type IngestSource, ingestApiOnepiece, ingestFandom } from '../ingest.js';
 import type { CommandContext } from './types.js';
 
 export async function ingestCommand({ databaseUrl, options }: CommandContext): Promise<void> {
@@ -19,6 +19,16 @@ export async function ingestCommand({ databaseUrl, options }: CommandContext): P
 
   const { db, client } = createDb(databaseUrl, { max: 1, onnotice: () => {} });
   try {
+    if (source === 'fandom') {
+      const s = await ingestFandom(db, http, {}, (m) => console.log(m));
+      console.log(
+        `ingest fandom : ${s.requests} requêtes (${s.fromCache} depuis le cache), ${s.rawInserted} nouvelles dans raw, ` +
+          `${s.listed} pages listées (${s.excludedSubpages} sous-pages et ${s.excludedNonCanon} non canon exclues), ` +
+          `${s.pages} pages lues + ${s.templates} templates Tabs Top, ${s.records} lignes dans staging.fandom, ` +
+          `${s.rejected} rejetées (voir pipeline report)`,
+      );
+      return;
+    }
     const result = await ingestApiOnepiece(db, http, (m) => console.log(m));
     const f = result.fetch;
     console.log(

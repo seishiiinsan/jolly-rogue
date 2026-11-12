@@ -11,6 +11,7 @@ const USAGE = `Usage : pipeline <commande> [options]
 Commandes :
   migrate                       Applique les migrations Drizzle (schémas raw, staging, canon)
   ingest --source=api-onepiece  Collecte (raw), parse (staging) et charge (canon) une source
+  ingest --source=fandom        Collecte (raw) et parse (staging) les infobox du One Piece Wiki
   export                        Écrit data/exports/canon.json (tri stable)
   report                        Écrit data/exports/report.md
 
