@@ -143,10 +143,46 @@ pnpm -r test
 docker compose config --quiet
 ```
 
+Test de bout en bout du front (Playwright, hors `pnpm -r test`) :
+
+```bash
+pnpm --filter @jolly-rogue/web e2e
+```
+
 - `pnpm lint` = `pnpm -r lint` (ESLint + typescript-eslint, règles type-aware, dans chaque package) puis `pnpm lint:root` (fichiers de config et `scripts/check-engine-lint.mjs`).
 - Règles notables : `any` explicite interdit (une exception se désactive ligne à ligne avec un commentaire qui la justifie), promesses non gérées interdites, et dans `packages/engine/**` : `Math.random`, `Date`, `performance`, `setTimeout`, `setInterval`, `fetch`, `process`, `window` et `document` interdits. `scripts/check-engine-lint.mjs` prouve que ces garde-fous sont actifs.
 - ESLint s'appuie sur TypeScript 6 (dépendance racine) car typescript-eslint ne prend pas encore en charge TypeScript 7 ; le typecheck des packages reste sur TypeScript 7.
 - Formatage : aucun formateur n'est imposé pour l'instant.
+
+## Jouer au prototype (J1)
+
+Serveur de dev sur http://127.0.0.1:5173 :
+
+```bash
+pnpm --filter @jolly-rogue/web dev
+```
+
+Ou dans Docker (build statique servi sur http://127.0.0.1:8081) :
+
+```bash
+docker compose up -d --build web
+```
+
+Régénérer les données de jeu après une modification des YAML de `packages/game-data/game/` :
+
+```bash
+pnpm --filter @jolly-rogue/game-data build
+```
+
+Rapport d'équilibrage (`data/sim/report.md`) :
+
+```bash
+pnpm -r build
+```
+
+```bash
+pnpm --filter @jolly-rogue/sim start --runs 10000 --seed-from 1
+```
 
 ## Structure
 
@@ -155,7 +191,12 @@ docker compose config --quiet
 | `packages/db` | Schéma Drizzle (`raw`, `staging`, `canon`), migrations, client partagé |
 | `packages/data-pipeline` | CLI d'ingestion et de réconciliation (image Docker `pipeline`), voir son README |
 | `packages/data-pipeline/overrides` | Alias et corrections manuelles des données canon |
-| `data/exports` | Exports JSON consommés par le moteur (commités) |
+| `packages/game-data` | Données de jeu écrites à la main (YAML), validées contre le canon → `data/exports/game.json` |
+| `packages/engine` | Moteur déterministe : RNG seedé, combat, boucle de partie, rejeu |
+| `packages/sim` | Simulateur d'équilibrage (bots) → `data/sim/report.md` |
+| `packages/web` | Front HTML/CSS jouable du prototype J1 |
+| `data/exports` | Exports JSON consommés par le moteur (commités) : `canon.json`, `game.json` |
+| `data/sim` | Rapport du simulateur (commité) |
 | `data/cache` | Cache HTTP brut (ignoré par Git) |
 | `packages/data-pipeline/fixtures` | Extraits réels des réponses API pour les tests |
-| `docs/` | Cadrage et tâches |
+| `docs/` | Cadrage, plan directeur, règles chiffrées (`regles-j1.md`) et tâches |

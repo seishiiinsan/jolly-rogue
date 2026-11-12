@@ -12,7 +12,7 @@ Les tâches à exécuter sont décrites une par une dans `docs/prompts/`.
 - Pas de dépendance ajoutée sans la justifier dans le plan.
 
 ## Stack
-- Monorepo **pnpm workspaces** : `packages/engine`, `packages/db`, `packages/data-pipeline` (d'autres viendront).
+- Monorepo **pnpm workspaces** : `packages/db`, `packages/data-pipeline`, `packages/game-data`, `packages/engine`, `packages/sim`, `packages/web` (d'autres viendront).
 - TypeScript strict partout (`"strict": true`, pas de `any` non justifié).
 - Node : version LTS épinglée dans les Dockerfile (image node). Sur l'hôte et en session cloud, Node >= 22 suffit (typecheck, lint, tests).
 - PostgreSQL + **Drizzle ORM / drizzle-kit** (schéma et migrations dans `packages/db`).
@@ -21,7 +21,7 @@ Les tâches à exécuter sont décrites une par une dans `docs/prompts/`.
 
 ## Docker
 - Les services (base, pipeline, plus tard back) tournent dans Docker (Compose v2).
-- Services : `db` (postgres, version majeure épinglée), `adminer`, `pipeline` (profile `tools`).
+- Services : `db` (postgres, version majeure épinglée), `adminer`, `web` (front statique), `pipeline`, `game-data` et `sim` (profile `tools`).
 - Ports liés à `127.0.0.1` uniquement. Identifiants via `.env` (jamais commité) ; `.env.example` commité.
 - Healthcheck `pg_isready` sur `db`, `depends_on: condition: service_healthy` pour les services qui en dépendent.
 - Toute commande documentée doit fonctionner via `docker compose run --rm <service> <commande>`.

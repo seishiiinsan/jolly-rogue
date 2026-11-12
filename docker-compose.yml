@@ -82,5 +82,14 @@ services:
       - ./data/exports:/data/exports:ro
       - ./data/sim:/data/sim
 
+  # Front jouable (build statique servi par nginx) : http://127.0.0.1:8081
+  web:
+    build:
+      context: .
+      dockerfile: packages/web/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8081}:80"
+
 volumes:
   pgdata:

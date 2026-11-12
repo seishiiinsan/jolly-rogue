@@ -1,0 +1,27 @@
+{
+  "name": "@jolly-rogue/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "@jolly-rogue/engine": "workspace:*",
+    "@jolly-rogue/game-data": "workspace:*"
+  },
+  "devDependencies": {
+    "@jolly-rogue/db": "workspace:*",
+    "@playwright/test": "1.63.0",
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
+  }
+}
