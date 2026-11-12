@@ -55,5 +55,32 @@ services:
       db:
         condition: service_healthy
 
+  # Valide les données de jeu et écrit data/exports/game.json (aucune base nécessaire).
+  game-data:
+    build:
+      context: .
+      dockerfile: packages/game-data/Dockerfile
+    profiles: [tools]
+    user: "${PIPELINE_UID:-1000}:${PIPELINE_GID:-1000}"
+    environment:
+      DATA_DIR: /data
+    volumes:
+      - ./data/exports:/data/exports
+      # YAML montés en lecture seule : une valeur se change sans reconstruire l'image.
+      - ./packages/game-data/game:/app/game:ro
+
+  # Simulateur d'équilibrage : lit data/exports/game.json, écrit data/sim/report.md.
+  sim:
+    build:
+      context: .
+      dockerfile: packages/sim/Dockerfile
+    profiles: [tools]
+    user: "${PIPELINE_UID:-1000}:${PIPELINE_GID:-1000}"
+    environment:
+      DATA_DIR: /data
+    volumes:
+      - ./data/exports:/data/exports:ro
+      - ./data/sim:/data/sim
+
 volumes:
   pgdata:

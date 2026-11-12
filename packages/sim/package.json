@@ -1,0 +1,28 @@
+{
+  "name": "@jolly-rogue/sim",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "sim": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "start": "node dist/cli.js"
+  },
+  "dependencies": {
+    "@jolly-rogue/engine": "workspace:*",
+    "@jolly-rogue/game-data": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  }
+}
