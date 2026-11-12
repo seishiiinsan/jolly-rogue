@@ -53,6 +53,30 @@ interface FetchedPage extends WikiPage {
   rawResponseId: number;
 }
 
+/**
+ * Paramètres d'un lot `prop=revisions` (titres déjà triés par l'appelant). Exporté pour que les
+ * fixtures et les tests reconstruisent exactement la même URL, donc la même clé de cache.
+ */
+export function revisionsParams(titles: readonly string[], withCategories: boolean): ApiParams {
+  return {
+    prop: withCategories ? 'revisions|categories' : 'revisions',
+    rvprop: 'ids|timestamp|content',
+    rvslots: 'main',
+    ...(withCategories ? { cllimit: 'max', clcategories: HAKI_CATEGORY_TITLES.join('|') } : {}),
+    titles: titles.join('|'),
+  };
+}
+
+/** Templates Tabs Top à récupérer : ceux des pages sans infobox lisible directement, triés. */
+export function templatesToFetch(pages: readonly WikiPage[]): string[] {
+  const out = new Set<string>();
+  for (const page of pages) {
+    const parsed = parseFandomPage(page);
+    if (parsed.status === 'needs-template') out.add(parsed.template);
+  }
+  return [...out].sort();
+}
+
 class FandomFetcher {
   readonly stats: FandomIngestStats = {
     requests: 0,
@@ -151,13 +175,7 @@ class FandomFetcher {
     const sorted = [...new Set(titles)].sort();
     for (let i = 0; i < sorted.length; i += TITLES_PER_BATCH) {
       const batch = sorted.slice(i, i + TITLES_PER_BATCH);
-      const params: ApiParams = {
-        prop: withCategories ? 'revisions|categories' : 'revisions',
-        rvprop: 'ids|timestamp|content',
-        rvslots: 'main',
-        ...(withCategories ? { cllimit: 'max', clcategories: HAKI_CATEGORY_TITLES.join('|') } : {}),
-        titles: batch.join('|'),
-      };
+      const params = revisionsParams(batch, withCategories);
       for await (const { data, rawId } of this.paginate(params, revisionsResponse)) {
         for (const p of data.query?.pages ?? []) {
           if (p.missing || p.invalid || p.pageid === undefined) {

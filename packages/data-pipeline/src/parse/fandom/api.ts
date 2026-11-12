@@ -82,3 +82,26 @@ export function parseApiBody<T extends z.ZodType>(schema: T, body: string, url: 
   if (!result.success) throw new Error(`API Fandom : réponse inattendue pour ${url} : ${result.error.message}`);
   return result.data;
 }
+
+/** Pages d'une réponse `prop=revisions` (sans continuation) ; pages manquantes ignorées. */
+export function wikiPagesFromResponse(data: z.output<typeof revisionsResponse>): {
+  pageId: number;
+  title: string;
+  revId: number;
+  wikitext: string;
+  categories: string[];
+}[] {
+  return (data.query?.pages ?? []).flatMap((p) => {
+    const rev = p.revisions?.[0];
+    if (p.pageid === undefined || !rev) return [];
+    return [
+      {
+        pageId: p.pageid,
+        title: p.title,
+        revId: rev.revid,
+        wikitext: rev.slots.main.content,
+        categories: (p.categories ?? []).map((c) => c.title),
+      },
+    ];
+  });
+}
