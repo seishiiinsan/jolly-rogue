@@ -244,7 +244,7 @@ Mobile, multijoueur temps réel, 3D, monétisation, images officielles, persos o
 
 - Temps réel par semaine à consacrer au projet (chiffré).
 - Taille du catalogue de persos pour la bêta.
-- Liste des factions et leurs bonus de synergie.
-- Statistiques et compétences des persos (format de données).
+- ~~Liste des factions et leurs bonus de synergie.~~ Tranché pour J1 (proposition à relire) : [regles-j1.md §8](regles-j1.md#8-synergies).
+- ~~Statistiques et compétences des persos (format de données).~~ Tranché pour J1 (proposition à relire) : [regles-j1.md §2, §3, §9 et §14](regles-j1.md#14-format-des-données).
 - Hébergement et budget mensuel.
 - Nom du jeu.
