@@ -1,0 +1,10 @@
+{
+  // Typecheck des sources du moteur seules, sans DOM ni types Node, et sans build préalable
+  // de game-data (condition `source`).
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "rootDir": "../..",
+    "noEmit": true,
+    "customConditions": ["source"]
+  }
+}

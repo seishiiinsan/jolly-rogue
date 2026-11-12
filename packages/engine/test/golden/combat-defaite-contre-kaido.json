@@ -1,0 +1,419 @@
+{
+ "outcome": "defeat",
+ "reason": "wipe",
+ "rounds": 3,
+ "rng": [
+  1210890621,
+  1463471211,
+  4124461,
+  16
+ ],
+ "events": [
+  {
+   "type": "combat_start",
+   "units": [
+    {
+     "id": "p0",
+     "side": "player",
+     "slot": 0,
+     "ref": "edward-newgate-barbe-blanche",
+     "kind": "character",
+     "level": 1,
+     "row": "front",
+     "archetype": "poing",
+     "maxHp": 230,
+     "atk": 42,
+     "spd": 10,
+     "skill": "seisme"
+    },
+    {
+     "id": "p1",
+     "side": "player",
+     "slot": 1,
+     "ref": "portgas-d-ace",
+     "kind": "character",
+     "level": 1,
+     "row": "front",
+     "archetype": "poing",
+     "maxHp": 130,
+     "atk": 37,
+     "spd": 16,
+     "skill": "poing-ardent"
+    },
+    {
+     "id": "p2",
+     "side": "player",
+     "slot": 2,
+     "ref": "diamante",
+     "kind": "character",
+     "level": 1,
+     "row": "back",
+     "archetype": "sabre",
+     "maxHp": 85,
+     "atk": 26,
+     "spd": 12,
+     "skill": "lame-ondulante"
+    },
+    {
+     "id": "e0",
+     "side": "enemy",
+     "slot": 0,
+     "ref": "boss-kaido",
+     "kind": "enemy",
+     "level": 1,
+     "row": "front",
+     "archetype": "poing",
+     "maxHp": 1900,
+     "atk": 110,
+     "spd": 16,
+     "skill": "souffle-ardent"
+    },
+    {
+     "id": "e1",
+     "side": "enemy",
+     "slot": 1,
+     "ref": "brute",
+     "kind": "enemy",
+     "level": 1,
+     "row": "front",
+     "archetype": "poing",
+     "maxHp": 550,
+     "atk": 50,
+     "spd": 6,
+     "skill": "cuirasse"
+    },
+    {
+     "id": "e2",
+     "side": "enemy",
+     "slot": 2,
+     "ref": "medecin",
+     "kind": "enemy",
+     "level": 1,
+     "row": "back",
+     "archetype": "soutien",
+     "maxHp": 275,
+     "atk": 50,
+     "spd": 11,
+     "skill": "bandage"
+    }
+   ]
+  },
+  {
+   "type": "skill_trigger",
+   "actor": "e1",
+   "skill": "cuirasse",
+   "trigger": "combat_start"
+  },
+  {
+   "type": "shield",
+   "source": "e1",
+   "target": "e1",
+   "amount": 110,
+   "shield": 110
+  },
+  {
+   "type": "round_start",
+   "round": 1
+  },
+  {
+   "type": "action",
+   "actor": "p1",
+   "kind": "attack",
+   "skill": null,
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p1",
+   "target": "e0",
+   "amount": 37,
+   "absorbed": 0,
+   "hp": 1863,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e0",
+   "kind": "attack",
+   "skill": null,
+   "target": "p0"
+  },
+  {
+   "type": "damage",
+   "source": "e0",
+   "target": "p0",
+   "amount": 110,
+   "absorbed": 0,
+   "hp": 120,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "p2",
+   "kind": "attack",
+   "skill": null,
+   "target": "e1"
+  },
+  {
+   "type": "damage",
+   "source": "p2",
+   "target": "e1",
+   "amount": 0,
+   "absorbed": 13,
+   "hp": 550,
+   "shield": 97
+  },
+  {
+   "type": "action",
+   "actor": "e2",
+   "kind": "attack",
+   "skill": null,
+   "target": "p0"
+  },
+  {
+   "type": "damage",
+   "source": "e2",
+   "target": "p0",
+   "amount": 50,
+   "absorbed": 0,
+   "hp": 70,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "p0",
+   "kind": "attack",
+   "skill": null,
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p0",
+   "target": "e0",
+   "amount": 42,
+   "absorbed": 0,
+   "hp": 1821,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e1",
+   "kind": "attack",
+   "skill": null,
+   "target": "p0"
+  },
+  {
+   "type": "damage",
+   "source": "e1",
+   "target": "p0",
+   "amount": 50,
+   "absorbed": 0,
+   "hp": 20,
+   "shield": 0
+  },
+  {
+   "type": "round_start",
+   "round": 2
+  },
+  {
+   "type": "action",
+   "actor": "p1",
+   "kind": "attack",
+   "skill": null,
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p1",
+   "target": "e0",
+   "amount": 37,
+   "absorbed": 0,
+   "hp": 1784,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e0",
+   "kind": "skill",
+   "skill": "souffle-ardent",
+   "target": "p0"
+  },
+  {
+   "type": "damage",
+   "source": "e0",
+   "target": "p0",
+   "amount": 20,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "p0"
+  },
+  {
+   "type": "damage",
+   "source": "e0",
+   "target": "p1",
+   "amount": 66,
+   "absorbed": 0,
+   "hp": 64,
+   "shield": 0
+  },
+  {
+   "type": "damage",
+   "source": "e0",
+   "target": "p2",
+   "amount": 66,
+   "absorbed": 0,
+   "hp": 19,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "p2",
+   "kind": "attack",
+   "skill": null,
+   "target": "e1"
+  },
+  {
+   "type": "damage",
+   "source": "p2",
+   "target": "e1",
+   "amount": 0,
+   "absorbed": 13,
+   "hp": 550,
+   "shield": 84
+  },
+  {
+   "type": "action",
+   "actor": "e2",
+   "kind": "skill",
+   "skill": "bandage",
+   "target": "p1"
+  },
+  {
+   "type": "heal",
+   "source": "e2",
+   "target": "e0",
+   "amount": 75,
+   "hp": 1859
+  },
+  {
+   "type": "action",
+   "actor": "e1",
+   "kind": "attack",
+   "skill": null,
+   "target": "p1"
+  },
+  {
+   "type": "damage",
+   "source": "e1",
+   "target": "p1",
+   "amount": 50,
+   "absorbed": 0,
+   "hp": 14,
+   "shield": 0
+  },
+  {
+   "type": "round_start",
+   "round": 3
+  },
+  {
+   "type": "action",
+   "actor": "p1",
+   "kind": "skill",
+   "skill": "poing-ardent",
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p1",
+   "target": "e0",
+   "amount": 40,
+   "absorbed": 0,
+   "hp": 1819,
+   "shield": 0
+  },
+  {
+   "type": "damage",
+   "source": "p1",
+   "target": "e1",
+   "amount": 0,
+   "absorbed": 40,
+   "hp": 550,
+   "shield": 44
+  },
+  {
+   "type": "action",
+   "actor": "e0",
+   "kind": "attack",
+   "skill": null,
+   "target": "p1"
+  },
+  {
+   "type": "damage",
+   "source": "e0",
+   "target": "p1",
+   "amount": 14,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "p1"
+  },
+  {
+   "type": "action",
+   "actor": "p2",
+   "kind": "skill",
+   "skill": "lame-ondulante",
+   "target": "e1"
+  },
+  {
+   "type": "damage",
+   "source": "p2",
+   "target": "e0",
+   "amount": 10,
+   "absorbed": 0,
+   "hp": 1809,
+   "shield": 0
+  },
+  {
+   "type": "damage",
+   "source": "p2",
+   "target": "e1",
+   "amount": 0,
+   "absorbed": 10,
+   "hp": 550,
+   "shield": 34
+  },
+  {
+   "type": "action",
+   "actor": "e2",
+   "kind": "attack",
+   "skill": null,
+   "target": "p2"
+  },
+  {
+   "type": "damage",
+   "source": "e2",
+   "target": "p2",
+   "amount": 19,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "p2"
+  },
+  {
+   "type": "combat_end",
+   "outcome": "defeat",
+   "reason": "wipe",
+   "rounds": 3
+  }
+ ]
+}

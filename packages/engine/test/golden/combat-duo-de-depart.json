@@ -1,0 +1,241 @@
+{
+ "outcome": "victory",
+ "reason": "wipe",
+ "rounds": 3,
+ "rng": [
+  1460752653,
+  37120149,
+  -2063102507,
+  17
+ ],
+ "events": [
+  {
+   "type": "combat_start",
+   "units": [
+    {
+     "id": "p0",
+     "side": "player",
+     "slot": 0,
+     "ref": "usopp",
+     "kind": "character",
+     "level": 1,
+     "row": "back",
+     "archetype": "tir",
+     "maxHp": 70,
+     "atk": 28,
+     "spd": 12,
+     "skill": "etoile-explosive"
+    },
+    {
+     "id": "p1",
+     "side": "player",
+     "slot": 1,
+     "ref": "diamond-joz",
+     "kind": "character",
+     "level": 1,
+     "row": "front",
+     "archetype": "poing",
+     "maxHp": 160,
+     "atk": 12,
+     "spd": 8,
+     "skill": "corps-de-diamant"
+    },
+    {
+     "id": "e0",
+     "side": "enemy",
+     "slot": 0,
+     "ref": "matelot",
+     "kind": "enemy",
+     "level": 1,
+     "row": "front",
+     "archetype": "poing",
+     "maxHp": 60,
+     "atk": 12,
+     "spd": 9,
+     "skill": null
+    },
+    {
+     "id": "e1",
+     "side": "enemy",
+     "slot": 1,
+     "ref": "sabreur",
+     "kind": "enemy",
+     "level": 1,
+     "row": "front",
+     "archetype": "sabre",
+     "maxHp": 50,
+     "atk": 16,
+     "spd": 12,
+     "skill": null
+    }
+   ]
+  },
+  {
+   "type": "skill_trigger",
+   "actor": "p1",
+   "skill": "corps-de-diamant",
+   "trigger": "combat_start"
+  },
+  {
+   "type": "shield",
+   "source": "p1",
+   "target": "p1",
+   "amount": 48,
+   "shield": 48
+  },
+  {
+   "type": "round_start",
+   "round": 1
+  },
+  {
+   "type": "action",
+   "actor": "p0",
+   "kind": "attack",
+   "skill": null,
+   "target": "e1"
+  },
+  {
+   "type": "damage",
+   "source": "p0",
+   "target": "e1",
+   "amount": 28,
+   "absorbed": 0,
+   "hp": 22,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e1",
+   "kind": "attack",
+   "skill": null,
+   "target": "p1"
+  },
+  {
+   "type": "damage",
+   "source": "e1",
+   "target": "p1",
+   "amount": 0,
+   "absorbed": 16,
+   "hp": 160,
+   "shield": 32
+  },
+  {
+   "type": "action",
+   "actor": "e0",
+   "kind": "attack",
+   "skill": null,
+   "target": "p1"
+  },
+  {
+   "type": "damage",
+   "source": "e0",
+   "target": "p1",
+   "amount": 0,
+   "absorbed": 12,
+   "hp": 160,
+   "shield": 20
+  },
+  {
+   "type": "action",
+   "actor": "p1",
+   "kind": "attack",
+   "skill": null,
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p1",
+   "target": "e0",
+   "amount": 12,
+   "absorbed": 0,
+   "hp": 48,
+   "shield": 0
+  },
+  {
+   "type": "round_start",
+   "round": 2
+  },
+  {
+   "type": "action",
+   "actor": "p0",
+   "kind": "attack",
+   "skill": null,
+   "target": "e1"
+  },
+  {
+   "type": "damage",
+   "source": "p0",
+   "target": "e1",
+   "amount": 22,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "e1"
+  },
+  {
+   "type": "action",
+   "actor": "e0",
+   "kind": "attack",
+   "skill": null,
+   "target": "p1"
+  },
+  {
+   "type": "damage",
+   "source": "e0",
+   "target": "p1",
+   "amount": 0,
+   "absorbed": 12,
+   "hp": 160,
+   "shield": 8
+  },
+  {
+   "type": "action",
+   "actor": "p1",
+   "kind": "attack",
+   "skill": null,
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p1",
+   "target": "e0",
+   "amount": 12,
+   "absorbed": 0,
+   "hp": 36,
+   "shield": 0
+  },
+  {
+   "type": "round_start",
+   "round": 3
+  },
+  {
+   "type": "action",
+   "actor": "p0",
+   "kind": "skill",
+   "skill": "etoile-explosive",
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p0",
+   "target": "e0",
+   "amount": 36,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "e0"
+  },
+  {
+   "type": "combat_end",
+   "outcome": "victory",
+   "reason": "wipe",
+   "rounds": 3
+  }
+ ]
+}

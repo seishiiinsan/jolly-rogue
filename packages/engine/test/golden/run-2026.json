@@ -1,0 +1,85 @@
+{
+ "choices": [
+  {
+   "type": "start"
+  },
+  {
+   "type": "skip"
+  },
+  {
+   "type": "start"
+  },
+  {
+   "type": "skip"
+  },
+  {
+   "type": "swap",
+   "a": 0,
+   "b": 1
+  },
+  {
+   "type": "move",
+   "index": 1,
+   "row": "back"
+  },
+  {
+   "type": "move",
+   "index": 0,
+   "row": "back"
+  },
+  {
+   "type": "start"
+  }
+ ],
+ "state": {
+  "engineVersion": "0.1.0",
+  "seed": 2026,
+  "rng": [
+   -1872473055,
+   1263677890,
+   -459116882,
+   37
+  ],
+  "phase": "over",
+  "wave": 3,
+  "team": [
+   {
+    "slug": "hina",
+    "level": 1,
+    "row": "back"
+   },
+   {
+    "slug": "pica",
+    "level": 1,
+    "row": "back"
+   }
+  ],
+  "enemies": [
+   {
+    "enemyId": "sabreur",
+    "row": "front",
+    "hp": 58,
+    "atk": 18,
+    "spd": 12
+   },
+   {
+    "enemyId": "tireur",
+    "row": "back",
+    "hp": 46,
+    "atk": 21,
+    "spd": 13
+   },
+   {
+    "enemyId": "tireur",
+    "row": "back",
+    "hp": 46,
+    "atk": 21,
+    "spd": 13
+   }
+  ],
+  "offer": null,
+  "wavesCleared": 2,
+  "hpPermilleSum": 1761,
+  "score": 2880
+ }
+}

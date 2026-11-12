@@ -1,0 +1,794 @@
+{
+ "outcome": "victory",
+ "reason": "wipe",
+ "rounds": 5,
+ "rng": [
+  1210890621,
+  1463471211,
+  4124461,
+  16
+ ],
+ "events": [
+  {
+   "type": "combat_start",
+   "units": [
+    {
+     "id": "p0",
+     "side": "player",
+     "slot": 0,
+     "ref": "monkey-d-luffy",
+     "kind": "character",
+     "level": 1,
+     "row": "front",
+     "archetype": "poing",
+     "maxHp": 266,
+     "atk": 50,
+     "spd": 19,
+     "skill": "gatling"
+    },
+    {
+     "id": "p1",
+     "side": "player",
+     "slot": 1,
+     "ref": "roronoa-zoro",
+     "kind": "character",
+     "level": 2,
+     "row": "front",
+     "archetype": "sabre",
+     "maxHp": 252,
+     "atk": 67,
+     "spd": 15,
+     "skill": "trois-sabres"
+    },
+    {
+     "id": "p2",
+     "side": "player",
+     "slot": 2,
+     "ref": "sanji",
+     "kind": "character",
+     "level": 1,
+     "row": "front",
+     "archetype": "poing",
+     "maxHp": 175,
+     "atk": 39,
+     "spd": 22,
+     "skill": "jambe-ardente"
+    },
+    {
+     "id": "p3",
+     "side": "player",
+     "slot": 3,
+     "ref": "usopp",
+     "kind": "character",
+     "level": 1,
+     "row": "back",
+     "archetype": "tir",
+     "maxHp": 98,
+     "atk": 39,
+     "spd": 12,
+     "skill": "etoile-explosive"
+    },
+    {
+     "id": "p4",
+     "side": "player",
+     "slot": 4,
+     "ref": "tony-tony-chopper",
+     "kind": "character",
+     "level": 3,
+     "row": "back",
+     "archetype": "soutien",
+     "maxHp": 280,
+     "atk": 56,
+     "spd": 14,
+     "skill": "premiers-soins"
+    },
+    {
+     "id": "e0",
+     "side": "enemy",
+     "slot": 0,
+     "ref": "brute",
+     "kind": "enemy",
+     "level": 1,
+     "row": "front",
+     "archetype": "poing",
+     "maxHp": 242,
+     "atk": 22,
+     "spd": 6,
+     "skill": "cuirasse"
+    },
+    {
+     "id": "e1",
+     "side": "enemy",
+     "slot": 1,
+     "ref": "sabreur",
+     "kind": "enemy",
+     "level": 1,
+     "row": "front",
+     "archetype": "sabre",
+     "maxHp": 110,
+     "atk": 35,
+     "spd": 12,
+     "skill": null
+    },
+    {
+     "id": "e2",
+     "side": "enemy",
+     "slot": 2,
+     "ref": "matelot",
+     "kind": "enemy",
+     "level": 1,
+     "row": "front",
+     "archetype": "poing",
+     "maxHp": 132,
+     "atk": 26,
+     "spd": 9,
+     "skill": null
+    },
+    {
+     "id": "e3",
+     "side": "enemy",
+     "slot": 3,
+     "ref": "tireur",
+     "kind": "enemy",
+     "level": 1,
+     "row": "back",
+     "archetype": "tir",
+     "maxHp": 88,
+     "atk": 39,
+     "spd": 13,
+     "skill": null
+    },
+    {
+     "id": "e4",
+     "side": "enemy",
+     "slot": 4,
+     "ref": "medecin",
+     "kind": "enemy",
+     "level": 1,
+     "row": "back",
+     "archetype": "soutien",
+     "maxHp": 121,
+     "atk": 22,
+     "spd": 11,
+     "skill": "bandage"
+    },
+    {
+     "id": "e5",
+     "side": "enemy",
+     "slot": 5,
+     "ref": "artificier",
+     "kind": "enemy",
+     "level": 1,
+     "row": "back",
+     "archetype": "tir",
+     "maxHp": 99,
+     "atk": 30,
+     "spd": 10,
+     "skill": "baril-de-poudre"
+    }
+   ]
+  },
+  {
+   "type": "skill_trigger",
+   "actor": "e0",
+   "skill": "cuirasse",
+   "trigger": "combat_start"
+  },
+  {
+   "type": "shield",
+   "source": "e0",
+   "target": "e0",
+   "amount": 48,
+   "shield": 48
+  },
+  {
+   "type": "round_start",
+   "round": 1
+  },
+  {
+   "type": "action",
+   "actor": "p2",
+   "kind": "attack",
+   "skill": null,
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p2",
+   "target": "e0",
+   "amount": 0,
+   "absorbed": 39,
+   "hp": 242,
+   "shield": 9
+  },
+  {
+   "type": "action",
+   "actor": "p0",
+   "kind": "attack",
+   "skill": null,
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p0",
+   "target": "e0",
+   "amount": 41,
+   "absorbed": 9,
+   "hp": 201,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "p1",
+   "kind": "attack",
+   "skill": null,
+   "target": "e1"
+  },
+  {
+   "type": "damage",
+   "source": "p1",
+   "target": "e1",
+   "amount": 67,
+   "absorbed": 0,
+   "hp": 43,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "p4",
+   "kind": "attack",
+   "skill": null,
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p4",
+   "target": "e0",
+   "amount": 56,
+   "absorbed": 0,
+   "hp": 145,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e3",
+   "kind": "attack",
+   "skill": null,
+   "target": "p3"
+  },
+  {
+   "type": "damage",
+   "source": "e3",
+   "target": "p3",
+   "amount": 39,
+   "absorbed": 0,
+   "hp": 59,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "p3",
+   "kind": "attack",
+   "skill": null,
+   "target": "e3"
+  },
+  {
+   "type": "damage",
+   "source": "p3",
+   "target": "e3",
+   "amount": 39,
+   "absorbed": 0,
+   "hp": 49,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e1",
+   "kind": "attack",
+   "skill": null,
+   "target": "p2"
+  },
+  {
+   "type": "damage",
+   "source": "e1",
+   "target": "p2",
+   "amount": 35,
+   "absorbed": 0,
+   "hp": 140,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e4",
+   "kind": "attack",
+   "skill": null,
+   "target": "p0"
+  },
+  {
+   "type": "damage",
+   "source": "e4",
+   "target": "p0",
+   "amount": 22,
+   "absorbed": 0,
+   "hp": 244,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e5",
+   "kind": "attack",
+   "skill": null,
+   "target": "p3"
+  },
+  {
+   "type": "damage",
+   "source": "e5",
+   "target": "p3",
+   "amount": 30,
+   "absorbed": 0,
+   "hp": 29,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e2",
+   "kind": "attack",
+   "skill": null,
+   "target": "p0"
+  },
+  {
+   "type": "damage",
+   "source": "e2",
+   "target": "p0",
+   "amount": 26,
+   "absorbed": 0,
+   "hp": 218,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e0",
+   "kind": "attack",
+   "skill": null,
+   "target": "p0"
+  },
+  {
+   "type": "damage",
+   "source": "e0",
+   "target": "p0",
+   "amount": 22,
+   "absorbed": 0,
+   "hp": 196,
+   "shield": 0
+  },
+  {
+   "type": "round_start",
+   "round": 2
+  },
+  {
+   "type": "action",
+   "actor": "p2",
+   "kind": "attack",
+   "skill": null,
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p2",
+   "target": "e0",
+   "amount": 39,
+   "absorbed": 0,
+   "hp": 106,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "p0",
+   "kind": "skill",
+   "skill": "gatling",
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p0",
+   "target": "e0",
+   "amount": 90,
+   "absorbed": 0,
+   "hp": 16,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "p1",
+   "kind": "attack",
+   "skill": null,
+   "target": "e0"
+  },
+  {
+   "type": "damage",
+   "source": "p1",
+   "target": "e0",
+   "amount": 16,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "e0"
+  },
+  {
+   "type": "action",
+   "actor": "p4",
+   "kind": "skill",
+   "skill": "premiers-soins",
+   "target": "e1"
+  },
+  {
+   "type": "heal",
+   "source": "p4",
+   "target": "p0",
+   "amount": 70,
+   "hp": 266
+  },
+  {
+   "type": "action",
+   "actor": "e3",
+   "kind": "attack",
+   "skill": null,
+   "target": "p3"
+  },
+  {
+   "type": "damage",
+   "source": "e3",
+   "target": "p3",
+   "amount": 29,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "p3"
+  },
+  {
+   "type": "action",
+   "actor": "e1",
+   "kind": "attack",
+   "skill": null,
+   "target": "p2"
+  },
+  {
+   "type": "damage",
+   "source": "e1",
+   "target": "p2",
+   "amount": 35,
+   "absorbed": 0,
+   "hp": 105,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e4",
+   "kind": "skill",
+   "skill": "bandage",
+   "target": "p0"
+  },
+  {
+   "type": "heal",
+   "source": "e4",
+   "target": "e1",
+   "amount": 33,
+   "hp": 76
+  },
+  {
+   "type": "action",
+   "actor": "e5",
+   "kind": "attack",
+   "skill": null,
+   "target": "p4"
+  },
+  {
+   "type": "damage",
+   "source": "e5",
+   "target": "p4",
+   "amount": 30,
+   "absorbed": 0,
+   "hp": 250,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e2",
+   "kind": "attack",
+   "skill": null,
+   "target": "p0"
+  },
+  {
+   "type": "damage",
+   "source": "e2",
+   "target": "p0",
+   "amount": 26,
+   "absorbed": 0,
+   "hp": 240,
+   "shield": 0
+  },
+  {
+   "type": "round_start",
+   "round": 3
+  },
+  {
+   "type": "action",
+   "actor": "p2",
+   "kind": "skill",
+   "skill": "jambe-ardente",
+   "target": "e1"
+  },
+  {
+   "type": "damage",
+   "source": "p2",
+   "target": "e1",
+   "amount": 46,
+   "absorbed": 0,
+   "hp": 30,
+   "shield": 0
+  },
+  {
+   "type": "buff_atk",
+   "source": "p2",
+   "target": "p2",
+   "pct": 15,
+   "total": 15
+  },
+  {
+   "type": "action",
+   "actor": "p0",
+   "kind": "attack",
+   "skill": null,
+   "target": "e1"
+  },
+  {
+   "type": "damage",
+   "source": "p0",
+   "target": "e1",
+   "amount": 30,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "e1"
+  },
+  {
+   "type": "action",
+   "actor": "p1",
+   "kind": "skill",
+   "skill": "trois-sabres",
+   "target": "e2"
+  },
+  {
+   "type": "damage",
+   "source": "p1",
+   "target": "e2",
+   "amount": 132,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "e2"
+  },
+  {
+   "type": "action",
+   "actor": "p4",
+   "kind": "attack",
+   "skill": null,
+   "target": "e3"
+  },
+  {
+   "type": "damage",
+   "source": "p4",
+   "target": "e3",
+   "amount": 49,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "e3"
+  },
+  {
+   "type": "action",
+   "actor": "e4",
+   "kind": "attack",
+   "skill": null,
+   "target": "p0"
+  },
+  {
+   "type": "damage",
+   "source": "e4",
+   "target": "p0",
+   "amount": 22,
+   "absorbed": 0,
+   "hp": 218,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "e5",
+   "kind": "attack",
+   "skill": null,
+   "target": "p4"
+  },
+  {
+   "type": "damage",
+   "source": "e5",
+   "target": "p4",
+   "amount": 30,
+   "absorbed": 0,
+   "hp": 220,
+   "shield": 0
+  },
+  {
+   "type": "round_start",
+   "round": 4
+  },
+  {
+   "type": "action",
+   "actor": "p2",
+   "kind": "attack",
+   "skill": null,
+   "target": "e4"
+  },
+  {
+   "type": "damage",
+   "source": "p2",
+   "target": "e4",
+   "amount": 44,
+   "absorbed": 0,
+   "hp": 77,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "p0",
+   "kind": "skill",
+   "skill": "gatling",
+   "target": "e4"
+  },
+  {
+   "type": "damage",
+   "source": "p0",
+   "target": "e4",
+   "amount": 77,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "e4"
+  },
+  {
+   "type": "action",
+   "actor": "p1",
+   "kind": "attack",
+   "skill": null,
+   "target": "e5"
+  },
+  {
+   "type": "damage",
+   "source": "p1",
+   "target": "e5",
+   "amount": 67,
+   "absorbed": 0,
+   "hp": 32,
+   "shield": 0
+  },
+  {
+   "type": "action",
+   "actor": "p4",
+   "kind": "skill",
+   "skill": "premiers-soins",
+   "target": "e5"
+  },
+  {
+   "type": "heal",
+   "source": "p4",
+   "target": "p2",
+   "amount": 70,
+   "hp": 175
+  },
+  {
+   "type": "action",
+   "actor": "e5",
+   "kind": "attack",
+   "skill": null,
+   "target": "p4"
+  },
+  {
+   "type": "damage",
+   "source": "e5",
+   "target": "p4",
+   "amount": 30,
+   "absorbed": 0,
+   "hp": 190,
+   "shield": 0
+  },
+  {
+   "type": "round_start",
+   "round": 5
+  },
+  {
+   "type": "action",
+   "actor": "p2",
+   "kind": "attack",
+   "skill": null,
+   "target": "e5"
+  },
+  {
+   "type": "damage",
+   "source": "p2",
+   "target": "e5",
+   "amount": 32,
+   "absorbed": 0,
+   "hp": 0,
+   "shield": 0
+  },
+  {
+   "type": "death",
+   "unit": "e5"
+  },
+  {
+   "type": "skill_trigger",
+   "actor": "e5",
+   "skill": "baril-de-poudre",
+   "trigger": "on_death"
+  },
+  {
+   "type": "damage",
+   "source": "e5",
+   "target": "p0",
+   "amount": 18,
+   "absorbed": 0,
+   "hp": 200,
+   "shield": 0
+  },
+  {
+   "type": "damage",
+   "source": "e5",
+   "target": "p1",
+   "amount": 18,
+   "absorbed": 0,
+   "hp": 234,
+   "shield": 0
+  },
+  {
+   "type": "damage",
+   "source": "e5",
+   "target": "p2",
+   "amount": 18,
+   "absorbed": 0,
+   "hp": 157,
+   "shield": 0
+  },
+  {
+   "type": "damage",
+   "source": "e5",
+   "target": "p4",
+   "amount": 18,
+   "absorbed": 0,
+   "hp": 172,
+   "shield": 0
+  },
+  {
+   "type": "combat_end",
+   "outcome": "victory",
+   "reason": "wipe",
+   "rounds": 5
+  }
+ ]
+}
