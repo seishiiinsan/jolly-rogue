@@ -29,6 +29,13 @@
       "when": 1794475971715,
       "tag": "0003_updated_at_triggers_external_ids_staging",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794478231470,
+      "tag": "0004_staging_fandom",
+      "breakpoints": true
     }
   ]
 }
